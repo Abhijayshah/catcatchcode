@@ -149,6 +149,8 @@ const HandwrittenNotes = () => {
                 src={note.preview} 
                 alt={note.title}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 opacity-90 group-hover:opacity-100"
+                crossOrigin="anonymous"
+                referrerPolicy="no-referrer"
               />
               <div className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/10 transition-colors">
                 <div className="bg-white/90 p-3 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">

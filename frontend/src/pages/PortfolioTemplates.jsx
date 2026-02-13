@@ -66,6 +66,8 @@ const PortfolioTemplates = () => {
                 src={template.image} 
                 alt={template.title}
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                crossOrigin="anonymous"
+                referrerPolicy="no-referrer"
               />
               <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
                 <a href={template.demoLink} className="p-2 bg-white rounded-full hover:bg-primary hover:text-white transition-colors" title="Live Demo">
