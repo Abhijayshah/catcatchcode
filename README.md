@@ -36,7 +36,7 @@ CatCatchCode is a comprehensive educational platform designed to provide student
 
 | Signup Page |
 |-------------|
-| ![Signup](./assets/image-for-readme/Signup.png) |
+| ![Signup](./assets/image-for-readme/signup.png) |
 
 ---
 
