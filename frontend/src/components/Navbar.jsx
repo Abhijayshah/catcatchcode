@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Search, ShoppingCart, User, Menu, BookOpen, LogOut } from 'lucide-react';
 import { useUser } from '../context/UserContext';
 import { useState } from 'react';
+import ThemeToggle from './ThemeToggle';
 
 const Navbar = () => {
   const { user, logout } = useUser();
@@ -24,7 +25,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="sticky top-0 z-50 bg-white shadow-md border-b border-gray-200">
+    <nav className="sticky top-0 z-50 bg-white dark:bg-gray-900 shadow-md border-b border-gray-200 dark:border-gray-800 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
@@ -32,7 +33,7 @@ const Navbar = () => {
             <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white font-bold text-xl">
               C
             </div>
-            <span className="text-xl font-bold text-gray-900 hidden sm:block">catcatchcode</span>
+            <span className="text-xl font-bold text-gray-900 dark:text-white hidden sm:block">catcatchcode</span>
           </Link>
 
           {/* Search Bar - Desktop */}
@@ -53,7 +54,8 @@ const Navbar = () => {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center gap-6">
-            <Link to="/courses" className="text-gray-600 hover:text-primary">
+            <ThemeToggle />
+            <Link to="/courses" className="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary">
               Categories
             </Link>
             
@@ -104,10 +106,11 @@ const Navbar = () => {
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center">
+          <div className="md:hidden flex items-center gap-4">
+            <ThemeToggle />
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-gray-700 hover:text-primary"
+              className="text-gray-700 hover:text-primary dark:text-gray-200"
             >
               <Menu className="h-6 w-6" />
             </button>

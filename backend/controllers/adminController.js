@@ -10,13 +10,37 @@ const getDashboardStats = async (req, res) => {
     const totalUsers = await User.countDocuments({ role: 'user' });
     const totalCourses = await Course.countDocuments();
     
-    const successfulPayments = await Payment.find({ status: 'approved' });
-    const totalRevenue = successfulPayments.reduce((acc, curr) => acc + curr.amount, 0);
+    // Payment Stats
+    const approvedPayments = await Payment.find({ status: 'approved' });
+    const pendingPayments = await Payment.countDocuments({ status: 'pending' });
+    
+    const totalRevenue = approvedPayments.reduce((acc, curr) => acc + curr.amount, 0);
+    
+    // Calculate Monthly Revenue (Simple)
+    const currentMonth = new Date().getMonth();
+    const monthlyRevenue = approvedPayments
+      .filter(p => new Date(p.createdAt).getMonth() === currentMonth)
+      .reduce((acc, curr) => acc + curr.amount, 0);
+
+    // Active Subscribers (Users who have bought at least one course)
+    const uniqueBuyers = new Set(approvedPayments.map(p => p.user.toString()));
+    const activeSubscribers = uniqueBuyers.size;
+
+    // Recent Transactions (Last 5)
+    const recentTransactions = await Payment.find()
+      .sort({ createdAt: -1 })
+      .limit(5)
+      .populate('user', 'name email')
+      .populate('course', 'title');
 
     res.json({
       totalUsers,
       totalCourses,
       totalRevenue,
+      monthlyRevenue,
+      activeSubscribers,
+      pendingPayments,
+      recentTransactions
     });
   } catch (error) {
     res.status(500).json({ message: error.message });

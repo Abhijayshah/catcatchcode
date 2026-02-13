@@ -29,6 +29,7 @@ app.use('/api/payments', paymentRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/settings', settingsRoutes);
 app.use('/api/resources', resourceRoutes);
+app.use('/api/dashboard', require('./routes/dashboardRoutes'));
 
 const PORT = process.env.PORT || 5001;
 

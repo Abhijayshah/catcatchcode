@@ -1,6 +1,8 @@
-import { useState, useRef } from 'react';
-import { X, Play, ChevronLeft, List, CheckCircle, Circle, Clock } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { X, Play, ChevronLeft, List, CheckCircle, Circle, Clock, FileText, Bookmark, MessageSquare, Download } from 'lucide-react';
 import AdvancedVideoPlayer from './AdvancedVideoPlayer';
+import WatermarkedPDFViewer from './WatermarkedPDFViewer';
+import SecureContent from './SecureContent';
 import api from '../services/api';
 import toast from 'react-hot-toast';
 
@@ -8,10 +10,53 @@ const StudyPlayer = ({ resource, onClose, onUpdate }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [player, setPlayer] = useState(null);
   const [activeTimestamp, setActiveTimestamp] = useState(null);
+  const [localProgress, setLocalProgress] = useState(resource.progress || 0);
+  const [showNotes, setShowNotes] = useState(false);
+  const [notes, setNotes] = useState(localStorage.getItem(`notes-${resource._id}`) || '');
+
+  // Determine if it's a PDF or Video
+  const isPdf = resource.url.endsWith('.pdf') || resource.provider === 'pdf' || resource.url.includes('.pdf');
+  const isPlaylist = resource.url.includes('list=');
+
+  // Check Download Permissions
+  const canDownload = ['Lab', 'Papers', 'Portfolio'].includes(resource.section);
+
+  const handleDownload = () => {
+    if (canDownload) {
+      window.open(resource.url, '_blank');
+    } else {
+      toast.error('Download is disabled for this resource');
+    }
+  };
+
+  // Track time for non-video resources (PDFs)
+  useEffect(() => {
+    let interval;
+    if (isPdf && !resource.isCompleted) {
+      interval = setInterval(() => {
+        // Increment "lastPosition" as seconds spent reading
+        // We don't auto-calculate percentage for PDFs effectively without scroll tracking
+        // But we can track time spent
+        api.put(`/resources/${resource._id}`, {
+          lastPosition: (resource.lastPosition || 0) + 5
+        }).catch(err => console.error('Time tracking error', err));
+      }, 5000);
+    }
+    return () => clearInterval(interval);
+  }, [isPdf, resource._id, resource.isCompleted, resource.lastPosition]);
+
+  const handleNotesSave = () => {
+    localStorage.setItem(`notes-${resource._id}`, notes);
+    toast.success('Notes saved locally!');
+    setShowNotes(false);
+  };
 
   const handleProgress = async (currentTime, duration) => {
     // Calculate percentage
     const progress = Math.min(Math.round((currentTime / duration) * 100), 100);
+    
+    // Update local UI immediately
+    setLocalProgress(progress);
     
     // Auto-save to backend (debounced by the interval in AdvancedVideoPlayer)
     try {
@@ -28,12 +73,14 @@ const StudyPlayer = ({ resource, onClose, onUpdate }) => {
 
   const toggleComplete = async () => {
     try {
+      const newStatus = !resource.isCompleted;
       const updated = await api.put(`/resources/${resource._id}`, {
-        isCompleted: !resource.isCompleted,
-        progress: !resource.isCompleted ? 100 : 0
+        isCompleted: newStatus,
+        progress: newStatus ? 100 : 0
       });
+      setLocalProgress(newStatus ? 100 : 0);
       onUpdate(updated.data);
-      if (!resource.isCompleted) {
+      if (newStatus) {
         toast.success('Marked as completed! 🎉');
       }
     } catch (error) {
@@ -41,15 +88,21 @@ const StudyPlayer = ({ resource, onClose, onUpdate }) => {
     }
   };
 
-  const jumpToTime = (seconds) => {
-    if (player && typeof player.seekTo === 'function') {
-      player.seekTo(seconds, true);
-      setActiveTimestamp(seconds);
+  const jumpToTime = (secondsOrIndex) => {
+    if (player) {
+      if (isPlaylist && typeof player.playVideoAt === 'function') {
+        player.playVideoAt(secondsOrIndex);
+        setActiveTimestamp(secondsOrIndex);
+      } else if (typeof player.seekTo === 'function') {
+        player.seekTo(secondsOrIndex, true);
+        setActiveTimestamp(secondsOrIndex);
+      }
     }
   };
 
   // Format seconds to MM:SS
   const formatTime = (seconds) => {
+    if (isPlaylist) return `#${seconds + 1}`; // For playlist, seconds is actually the index
     const mins = Math.floor(seconds / 60);
     const secs = Math.floor(seconds % 60);
     return `${mins}:${secs.toString().padStart(2, '0')}`;
@@ -72,14 +125,21 @@ const StudyPlayer = ({ resource, onClose, onUpdate }) => {
           </div>
         </div>
         <div className="flex items-center gap-4">
+          <button
+            onClick={() => setShowNotes(!showNotes)}
+            className={`p-2 rounded-full transition-colors ${showNotes ? 'bg-primary text-white' : 'hover:bg-gray-700'}`}
+            title="Personal Notes"
+          >
+            <MessageSquare className="w-5 h-5" />
+          </button>
           <div className="hidden md:flex items-center gap-2">
             <div className="w-32 h-2 bg-gray-700 rounded-full overflow-hidden">
               <div 
                 className="h-full bg-green-500 transition-all duration-500"
-                style={{ width: `${resource.progress}%` }}
+                style={{ width: `${localProgress}%` }}
               />
             </div>
-            <span className="text-xs text-gray-400">{resource.progress}%</span>
+            <span className="text-xs text-gray-400">{localProgress}%</span>
           </div>
           <button
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -91,16 +151,22 @@ const StudyPlayer = ({ resource, onClose, onUpdate }) => {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 flex overflow-hidden">
-        {/* Video Area */}
+      <div className="flex-1 flex overflow-hidden relative">
+        {/* Video or PDF Area */}
         <div className="flex-1 bg-black flex items-center justify-center relative">
           <div className="w-full h-full">
-            <AdvancedVideoPlayer 
-              url={resource.url} 
-              initialTime={resource.lastPosition || 0}
-              onProgress={handleProgress}
-              onReady={setPlayer}
-            />
+            {isPdf ? (
+              <SecureContent>
+                <WatermarkedPDFViewer url={resource.url} />
+              </SecureContent>
+            ) : (
+              <AdvancedVideoPlayer 
+                url={resource.url} 
+                initialTime={resource.lastPosition || 0}
+                onProgress={handleProgress}
+                onReady={setPlayer}
+              />
+            )}
           </div>
         </div>
 
@@ -131,15 +197,15 @@ const StudyPlayer = ({ resource, onClose, onUpdate }) => {
                     {resource.title}
                   </h4>
                   <div className="flex items-center gap-2 text-xs text-gray-400">
-                    <Play className="w-3 h-3" />
-                    <span>Video Resource</span>
+                    {isPdf ? <FileText className="w-3 h-3" /> : <Play className="w-3 h-3" />}
+                    <span>{isPdf ? 'PDF Resource' : 'Video Resource'}</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Timestamps Section */}
-            {resource.timestamps && resource.timestamps.length > 0 && (
+            {/* Timestamps Section (Only for Video) */}
+            {!isPdf && resource.timestamps && resource.timestamps.length > 0 && (
               <div className="space-y-1">
                 <h5 className="text-xs font-semibold text-gray-400 uppercase tracking-wider px-2 mb-2">Timestamps</h5>
                 {resource.timestamps.map((ts, idx) => (
@@ -152,9 +218,9 @@ const StudyPlayer = ({ resource, onClose, onUpdate }) => {
                   >
                     <div className="flex items-center gap-3">
                       <div className="p-1.5 bg-gray-700 rounded text-gray-400 group-hover:text-white">
-                        <Clock className="w-3 h-3" />
+                        {isPlaylist ? <Play className="w-3 h-3" /> : <Clock className="w-3 h-3" />}
                       </div>
-                      <span className="text-sm text-gray-300 group-hover:text-white">{ts.label}</span>
+                      <span className="text-sm text-gray-300 group-hover:text-white line-clamp-1">{ts.label}</span>
                     </div>
                     <span className="text-xs font-mono text-gray-500">{formatTime(ts.time)}</span>
                   </button>

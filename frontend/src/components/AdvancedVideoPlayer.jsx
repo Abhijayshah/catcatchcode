@@ -94,7 +94,8 @@ const AdvancedVideoPlayer = ({ url, initialTime = 0, onProgress, onReady }) => {
   return (
     <div className="relative w-full h-full">
       <YouTube
-        videoId={!listId ? videoId : null} // If playlist, videoId isn't strictly needed if list param is passed
+        key={listId || videoId} // Force re-render when video/playlist changes
+        videoId={!listId ? videoId : undefined}
         opts={opts}
         onReady={handleReady}
         onStateChange={handleStateChange}

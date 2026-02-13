@@ -9,3 +9,7 @@
 body {
   @apply bg-white text-secondary font-sans;
 }
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
