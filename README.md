@@ -2,19 +2,46 @@
 
 CatCatchCode is a comprehensive educational platform designed to provide students and developers with high-quality resources, including handwritten notes, video tutorials, AI resources, and course materials. The platform features a robust administrative panel for managing content and a user dashboard for tracking learning progress.
 
-## � Connect With Us
+## 📱 Connect With Us
 
 Stay updated with the latest resources and community updates!
 
-- **Website**: [catcatchcode.online](https://catcatchcode.online/)
-- **YouTube (Team Lead - Abhijay Shah)**: [Abhijay Shah YouTube](https://www.youtube.com/channel/UCX8i_v1eL9VuLWG1fKwEXhw)
-- **YouTube (Official)**: [CatCatchCode Official](https://www.youtube.com/channel/UCgzmNjDq8kI3StWFrIv7QZg)
-- **Instagram**: [@cat_catch_code](https://www.instagram.com/cat_catch_code/)
-- **LinkedIn**: [CatCatchCode](https://www.linkedin.com/in/catcatchcode/)
-- **Twitter/X**: [@catcatchcode](https://x.com/catcatchcode)
-- **GitHub**: [catcatchcode](https://github.com/catcatchcode)
-- **Facebook**: [CatCatchCode](https://www.facebook.com/catcatcatchcode) | [Official Profile](https://www.facebook.com/profile.php?id=61584628988988)
-- **Reddit**: [u/Super_Cartoonist1246](https://www.reddit.com/user/Super_Cartoonist1246/)
+<div align="left">
+  <a href="https://catcatchcode.online/">
+    <img src="https://img.shields.io/badge/Website-catcatchcode.online-blue?style=flat-square&logo=google-chrome&logoColor=white" alt="Website" />
+  </a>
+  <a href="mailto:catcatchcode@gmail.com">
+    <img src="https://img.shields.io/badge/Email-Contact%20Us-red?style=flat-square&logo=gmail&logoColor=white" alt="Email" />
+  </a>
+</div>
+
+### Social Media
+<div align="left">
+  <a href="https://www.youtube.com/channel/UCgzmNjDq8kI3StWFrIv7QZg">
+    <img src="https://img.shields.io/badge/YouTube-Official%20Channel-red?style=flat-square&logo=youtube&logoColor=white" alt="YouTube Official" />
+  </a>
+  <a href="https://www.youtube.com/channel/UCX8i_v1eL9VuLWG1fKwEXhw">
+    <img src="https://img.shields.io/badge/YouTube-Abhijay%20Shah-red?style=flat-square&logo=youtube&logoColor=white" alt="YouTube Team Lead" />
+  </a>
+  <a href="https://www.instagram.com/cat_catch_code/">
+    <img src="https://img.shields.io/badge/Instagram-@cat__catch__code-E4405F?style=flat-square&logo=instagram&logoColor=white" alt="Instagram" />
+  </a>
+  <a href="https://www.linkedin.com/in/catcatchcode/">
+    <img src="https://img.shields.io/badge/LinkedIn-CatCatchCode-blue?style=flat-square&logo=linkedin&logoColor=white" alt="LinkedIn" />
+  </a>
+  <a href="https://x.com/catcatchcode">
+    <img src="https://img.shields.io/badge/Twitter-@catcatchcode-black?style=flat-square&logo=x&logoColor=white" alt="Twitter" />
+  </a>
+  <a href="https://github.com/catcatchcode">
+    <img src="https://img.shields.io/badge/GitHub-catcatchcode-181717?style=flat-square&logo=github&logoColor=white" alt="GitHub" />
+  </a>
+  <a href="https://www.facebook.com/catcatcatchcode">
+    <img src="https://img.shields.io/badge/Facebook-CatCatchCode-1877F2?style=flat-square&logo=facebook&logoColor=white" alt="Facebook" />
+  </a>
+  <a href="https://www.reddit.com/user/Super_Cartoonist1246/">
+    <img src="https://img.shields.io/badge/Reddit-u%2FSuper__Cartoonist1246-FF4500?style=flat-square&logo=reddit&logoColor=white" alt="Reddit" />
+  </a>
+</div>
 
 ---
 
