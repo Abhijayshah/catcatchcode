@@ -10,6 +10,8 @@ const CourseCard = ({ course }) => {
             src={course.thumbnail?.url || 'https://via.placeholder.com/640x360?text=Course+Thumbnail'}
             alt={course.title}
             className="w-full h-full object-cover"
+            crossOrigin="anonymous"
+            referrerPolicy="no-referrer"
           />
         </div>
         <div className="p-4 flex flex-col flex-1">

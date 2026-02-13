@@ -107,7 +107,13 @@ const CourseDetails = () => {
       <div className="lg:col-span-1">
         <div className="bg-white p-6 rounded-lg shadow-lg border border-gray-200 sticky top-24">
           <div className="aspect-video mb-4 rounded-md overflow-hidden">
-             <img src={course.thumbnail?.url} alt={course.title} className="w-full h-full object-cover" />
+             <img 
+               src={course.thumbnail?.url} 
+               alt={course.title} 
+               className="w-full h-full object-cover" 
+               crossOrigin="anonymous"
+               referrerPolicy="no-referrer"
+             />
           </div>
           <div className="text-3xl font-bold mb-4">₹{course.price}</div>
 
@@ -122,7 +128,13 @@ const CourseDetails = () => {
                         <p className="font-semibold mb-1">Pay via UPI:</p>
                         <p className="font-mono bg-gray-200 p-1 rounded select-all">{settings.upiId}</p>
                         {settings.qrCode?.url && (
-                             <img src={settings.qrCode.url} alt="QR Code" className="w-32 h-32 mt-2 mx-auto" />
+                             <img 
+                               src={settings.qrCode.url} 
+                               alt="QR Code" 
+                               className="w-32 h-32 mt-2 mx-auto" 
+                               crossOrigin="anonymous"
+                               referrerPolicy="no-referrer"
+                             />
                         )}
                     </div>
                 )}

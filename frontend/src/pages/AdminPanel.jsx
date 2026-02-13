@@ -348,7 +348,13 @@ const AdminPanel = () => {
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">QR Code</label>
                                 {settings.qrCode?.url && (
-                                    <img src={settings.qrCode.url} alt="Current QR" className="w-32 h-32 mb-2 object-cover border rounded" />
+                                    <img 
+                                      src={settings.qrCode.url} 
+                                      alt="Current QR" 
+                                      className="w-32 h-32 mb-2 object-cover border rounded" 
+                                      crossOrigin="anonymous"
+                                      referrerPolicy="no-referrer"
+                                    />
                                 )}
                                 <input 
                                     type="file" 
