@@ -18,7 +18,9 @@ const app = express();
 
 // Configure CORS
 const corsOptions = {
-  origin: process.env.FRONTEND_URL || '*', // Allow frontend URL or all for dev
+  origin: '*', // Allow all origins for development
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
   optionsSuccessStatus: 200
 };

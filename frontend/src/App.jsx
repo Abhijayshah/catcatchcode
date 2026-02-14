@@ -2,6 +2,7 @@ import { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { UserProvider } from './context/UserContext';
 import { FocusProvider } from './context/FocusContext';
+import { ThemeProvider } from './context/ThemeContext';
 import { HelmetProvider } from 'react-helmet-async';
 import Layout from './components/Layout';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -28,6 +29,7 @@ function App() {
   return (
     <HelmetProvider>
         <Router>
+        <ThemeProvider>
         <UserProvider>
           <FocusProvider>
             <Layout>
@@ -86,6 +88,7 @@ function App() {
             </Layout>
           </FocusProvider>
         </UserProvider>
+        </ThemeProvider>
         </Router>
     </HelmetProvider>
   );

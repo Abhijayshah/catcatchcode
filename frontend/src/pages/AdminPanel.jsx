@@ -124,9 +124,9 @@ const AdminPanel = () => {
   return (
     <div className="flex flex-col md:flex-row gap-6 min-h-screen">
       {/* Sidebar */}
-      <div className="w-full md:w-64 bg-white rounded-lg shadow-sm border border-gray-200 h-fit">
-        <div className="p-4 border-b border-gray-100">
-            <h2 className="font-bold text-gray-900">Admin Panel</h2>
+      <div className="w-full md:w-64 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 h-fit">
+        <div className="p-4 border-b border-gray-100 dark:border-gray-700">
+            <h2 className="font-bold text-gray-900 dark:text-white">Admin Panel</h2>
         </div>
         <nav className="flex flex-col p-2">
             {['stats', 'reports', 'courses', 'payments', 'users', 'settings'].map((tab) => (
@@ -134,7 +134,7 @@ const AdminPanel = () => {
                     key={tab}
                     onClick={() => setActiveTab(tab)}
                     className={`text-left px-4 py-3 rounded-md capitalize mb-1 ${
-                        activeTab === tab ? 'bg-primary text-white font-medium' : 'text-gray-600 hover:bg-gray-50'
+                        activeTab === tab ? 'bg-primary text-white font-medium' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
                     }`}
                 >
                     {tab}
@@ -144,33 +144,33 @@ const AdminPanel = () => {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+      <div className="flex-1 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
         {loading ? <Loader /> : (
             <>
                 {activeTab === 'stats' && stats && (
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div className="bg-purple-50 p-6 rounded-lg border border-purple-100">
-                            <h3 className="text-purple-800 font-medium">Total Revenue</h3>
-                            <p className="text-3xl font-bold text-purple-900 mt-2">₹{stats.totalRevenue}</p>
+                        <div className="bg-purple-50 dark:bg-purple-900/20 p-6 rounded-lg border border-purple-100 dark:border-purple-800">
+                            <h3 className="text-purple-800 dark:text-purple-300 font-medium">Total Revenue</h3>
+                            <p className="text-3xl font-bold text-purple-900 dark:text-purple-100 mt-2">₹{stats.totalRevenue}</p>
                         </div>
-                        <div className="bg-blue-50 p-6 rounded-lg border border-blue-100">
-                            <h3 className="text-blue-800 font-medium">Total Users</h3>
-                            <p className="text-3xl font-bold text-blue-900 mt-2">{stats.totalUsers}</p>
+                        <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-lg border border-blue-100 dark:border-blue-800">
+                            <h3 className="text-blue-800 dark:text-blue-300 font-medium">Total Users</h3>
+                            <p className="text-3xl font-bold text-blue-900 dark:text-blue-100 mt-2">{stats.totalUsers}</p>
                         </div>
-                        <div className="bg-green-50 p-6 rounded-lg border border-green-100">
-                            <h3 className="text-green-800 font-medium">Total Courses</h3>
-                            <p className="text-3xl font-bold text-green-900 mt-2">{stats.totalCourses}</p>
+                        <div className="bg-green-50 dark:bg-green-900/20 p-6 rounded-lg border border-green-100 dark:border-green-800">
+                            <h3 className="text-green-800 dark:text-green-300 font-medium">Total Courses</h3>
+                            <p className="text-3xl font-bold text-green-900 dark:text-green-100 mt-2">{stats.totalCourses}</p>
                         </div>
                     </div>
                 )}
 
                 {activeTab === 'reports' && (
                     <div className="space-y-6">
-                        <h2 className="text-xl font-bold mb-4">Export Reports</h2>
+                        <h2 className="text-xl font-bold mb-4 dark:text-white">Export Reports</h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
-                                <h3 className="font-bold text-lg mb-2">Payment Report</h3>
-                                <p className="text-gray-600 mb-4">Export all payment transaction history to CSV.</p>
+                            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                                <h3 className="font-bold text-lg mb-2 dark:text-white">Payment Report</h3>
+                                <p className="text-gray-600 dark:text-gray-300 mb-4">Export all payment transaction history to CSV.</p>
                                 <button 
                                     onClick={() => window.open('http://localhost:5000/api/admin/export/payments', '_blank')}
                                     className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
@@ -178,9 +178,9 @@ const AdminPanel = () => {
                                     <Upload className="w-4 h-4 rotate-180" /> Export Payments
                                 </button>
                             </div>
-                            <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
-                                <h3 className="font-bold text-lg mb-2">User Report</h3>
-                                <p className="text-gray-600 mb-4">Export all registered users details to CSV.</p>
+                            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow">
+                                <h3 className="font-bold text-lg mb-2 dark:text-white">User Report</h3>
+                                <p className="text-gray-600 dark:text-gray-300 mb-4">Export all registered users details to CSV.</p>
                                 <button 
                                     onClick={() => window.open('http://localhost:5000/api/admin/export/users', '_blank')}
                                     className="flex items-center gap-2 bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700"
@@ -195,28 +195,28 @@ const AdminPanel = () => {
                 {activeTab === 'courses' && (
                     <div>
                         <div className="flex justify-between items-center mb-6">
-                            <h2 className="text-xl font-bold">Manage Courses</h2>
+                            <h2 className="text-xl font-bold dark:text-white">Manage Courses</h2>
                             <button onClick={() => setShowAddCourse(!showAddCourse)} className="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-md hover:bg-purple-700">
                                 <Plus className="w-4 h-4" /> Add Course
                             </button>
                         </div>
 
                         {showAddCourse && (
-                            <form onSubmit={handleAddCourse} className="mb-8 bg-gray-50 p-6 rounded-lg border border-gray-200">
+                            <form onSubmit={handleAddCourse} className="mb-8 bg-gray-50 dark:bg-gray-700/30 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                                    <input type="text" placeholder="Title" className="p-2 border rounded" value={newCourse.title} onChange={e => setNewCourse({...newCourse, title: e.target.value})} required />
-                                    <input type="text" placeholder="Category" className="p-2 border rounded" value={newCourse.category} onChange={e => setNewCourse({...newCourse, category: e.target.value})} required />
-                                    <input type="number" placeholder="Price" className="p-2 border rounded" value={newCourse.price} onChange={e => setNewCourse({...newCourse, price: e.target.value})} required />
-                                    <input type="file" onChange={e => setNewCourse({...newCourse, thumbnail: e.target.files[0]})} className="p-2 border rounded bg-white" required />
+                                    <input type="text" placeholder="Title" className="p-2 border rounded dark:bg-gray-800 dark:border-gray-600 dark:text-white" value={newCourse.title} onChange={e => setNewCourse({...newCourse, title: e.target.value})} required />
+                                    <input type="text" placeholder="Category" className="p-2 border rounded dark:bg-gray-800 dark:border-gray-600 dark:text-white" value={newCourse.category} onChange={e => setNewCourse({...newCourse, category: e.target.value})} required />
+                                    <input type="number" placeholder="Price" className="p-2 border rounded dark:bg-gray-800 dark:border-gray-600 dark:text-white" value={newCourse.price} onChange={e => setNewCourse({...newCourse, price: e.target.value})} required />
+                                    <input type="file" onChange={e => setNewCourse({...newCourse, thumbnail: e.target.files[0]})} className="p-2 border rounded bg-white dark:bg-gray-800 dark:border-gray-600 dark:text-gray-300" required />
                                 </div>
-                                <textarea placeholder="Description" className="w-full p-2 border rounded mb-4" rows="3" value={newCourse.description} onChange={e => setNewCourse({...newCourse, description: e.target.value})} required></textarea>
+                                <textarea placeholder="Description" className="w-full p-2 border rounded mb-4 dark:bg-gray-800 dark:border-gray-600 dark:text-white" rows="3" value={newCourse.description} onChange={e => setNewCourse({...newCourse, description: e.target.value})} required></textarea>
                                 <button type="submit" className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700">Save Course</button>
                             </form>
                         )}
 
                         <div className="overflow-x-auto">
                             <table className="w-full text-left">
-                                <thead className="bg-gray-50 text-gray-600 font-medium border-b">
+                                <thead className="bg-gray-50 dark:bg-gray-700 text-gray-600 dark:text-gray-300 font-medium border-b dark:border-gray-600">
                                     <tr>
                                         <th className="p-3">Title</th>
                                         <th className="p-3">Category</th>
@@ -224,9 +224,9 @@ const AdminPanel = () => {
                                         <th className="p-3">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody className="dark:text-gray-300">
                                     {courses.map(course => (
-                                        <tr key={course._id} className="border-b hover:bg-gray-50">
+                                        <tr key={course._id} className="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/50">
                                             <td className="p-3">{course.title}</td>
                                             <td className="p-3">{course.category}</td>
                                             <td className="p-3">₹{course.price}</td>
@@ -245,9 +245,9 @@ const AdminPanel = () => {
 
                 {activeTab === 'payments' && (
                      <div className="overflow-x-auto">
-                        <h2 className="text-xl font-bold mb-6">Payment Approvals</h2>
+                        <h2 className="text-xl font-bold mb-6 dark:text-white">Payment Approvals</h2>
                         <table className="w-full text-left">
-                            <thead className="bg-gray-50 text-gray-600 font-medium border-b">
+                            <thead className="bg-gray-50 dark:bg-gray-700 text-gray-600 dark:text-gray-300 font-medium border-b dark:border-gray-600">
                                 <tr>
                                     <th className="p-3">User</th>
                                     <th className="p-3">Course</th>
@@ -257,12 +257,12 @@ const AdminPanel = () => {
                                     <th className="p-3">Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody className="dark:text-gray-300">
                                 {payments.map(payment => (
-                                    <tr key={payment._id} className="border-b hover:bg-gray-50">
+                                    <tr key={payment._id} className="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/50">
                                         <td className="p-3 text-sm">
-                                            <div className="font-medium">{payment.user?.name}</div>
-                                            <div className="text-gray-500">{payment.user?.email}</div>
+                                            <div className="font-medium dark:text-white">{payment.user?.name}</div>
+                                            <div className="text-gray-500 dark:text-gray-400">{payment.user?.email}</div>
                                         </td>
                                         <td className="p-3">{payment.course?.title}</td>
                                         <td className="p-3 font-mono text-sm">{payment.transactionId}</td>
@@ -295,9 +295,9 @@ const AdminPanel = () => {
 
                 {activeTab === 'users' && (
                     <div className="overflow-x-auto">
-                        <h2 className="text-xl font-bold mb-6">User Management</h2>
+                        <h2 className="text-xl font-bold mb-6 dark:text-white">User Management</h2>
                         <table className="w-full text-left">
-                            <thead className="bg-gray-50 text-gray-600 font-medium border-b">
+                            <thead className="bg-gray-50 dark:bg-gray-700 text-gray-600 dark:text-gray-300 font-medium border-b dark:border-gray-600">
                                 <tr>
                                     <th className="p-3">Name</th>
                                     <th className="p-3">Email</th>
@@ -306,9 +306,9 @@ const AdminPanel = () => {
                                     <th className="p-3">Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody className="dark:text-gray-300">
                                 {users.map(u => (
-                                    <tr key={u._id} className="border-b hover:bg-gray-50">
+                                    <tr key={u._id} className="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/50">
                                         <td className="p-3">{u.name}</td>
                                         <td className="p-3">{u.email}</td>
                                         <td className="p-3 capitalize">{u.role}</td>
@@ -334,24 +334,24 @@ const AdminPanel = () => {
 
                 {activeTab === 'settings' && (
                     <div className="max-w-md">
-                        <h2 className="text-xl font-bold mb-6">Payment Settings</h2>
+                        <h2 className="text-xl font-bold mb-6 dark:text-white">Payment Settings</h2>
                         <form onSubmit={handleUpdateSettings} className="space-y-4">
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">UPI ID</label>
+                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">UPI ID</label>
                                 <input 
                                     type="text" 
                                     value={settings.upiId} 
                                     onChange={e => setSettings({...settings, upiId: e.target.value})}
-                                    className="w-full px-4 py-2 border rounded-md"
+                                    className="w-full px-4 py-2 border rounded-md dark:bg-gray-800 dark:border-gray-600 dark:text-white"
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">QR Code</label>
+                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">QR Code</label>
                                 {settings.qrCode?.url && (
                                     <img 
                                       src={settings.qrCode.url} 
                                       alt="Current QR" 
-                                      className="w-32 h-32 mb-2 object-cover border rounded" 
+                                      className="w-32 h-32 mb-2 object-cover border rounded dark:border-gray-600" 
                                       crossOrigin="anonymous"
                                       referrerPolicy="no-referrer"
                                     />
@@ -359,7 +359,7 @@ const AdminPanel = () => {
                                 <input 
                                     type="file" 
                                     onChange={e => setSettings({...settings, newQrCode: e.target.files[0]})}
-                                    className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20"
+                                    className="w-full text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20"
                                 />
                             </div>
                             <button type="submit" className="bg-primary text-white px-6 py-2 rounded-md hover:bg-purple-700">

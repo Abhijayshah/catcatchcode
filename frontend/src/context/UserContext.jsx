@@ -18,12 +18,14 @@ export const UserProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const { data } = await api.post('/auth/login', { email, password });
+      const response = await api.post('/auth/login', { email, password });
+      const { data } = response;
       setUser(data);
       localStorage.setItem('userInfo', JSON.stringify(data));
       toast.success('Login successful');
       return true;
     } catch (error) {
+      console.error('Login Error:', error);
       toast.error(error.response?.data?.message || 'Login failed');
       return false;
     }
@@ -31,12 +33,14 @@ export const UserProvider = ({ children }) => {
 
   const register = async (name, email, password) => {
     try {
-      const { data } = await api.post('/auth/register', { name, email, password });
+      const response = await api.post('/auth/register', { name, email, password });
+      const { data } = response;
       setUser(data);
       localStorage.setItem('userInfo', JSON.stringify(data));
       toast.success('Registration successful');
       return true;
     } catch (error) {
+      console.error('Register Error:', error);
       toast.error(error.response?.data?.message || 'Registration failed');
       return false;
     }

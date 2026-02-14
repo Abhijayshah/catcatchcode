@@ -44,7 +44,7 @@ const Navbar = () => {
                 placeholder="Search for anything"
                 value={keyword}
                 onChange={(e) => setKeyword(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary bg-gray-50"
+                className="w-full pl-10 pr-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 transition-colors duration-300"
               />
               <button type="submit" className="absolute left-3 top-2.5 text-gray-400">
                 <Search className="h-5 w-5" />
@@ -57,6 +57,9 @@ const Navbar = () => {
             <ThemeToggle />
             <Link to="/courses" className="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary">
               Categories
+            </Link>
+            <Link to="/cart" className="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary">
+              <ShoppingCart className="h-6 w-6" />
             </Link>
             
             {user ? (
@@ -120,22 +123,24 @@ const Navbar = () => {
 
       {/* Mobile Menu Dropdown (Top) */}
       {isMenuOpen && (
-        <div className="md:hidden border-t border-gray-200 bg-white">
+        <div className="md:hidden border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 transition-colors duration-300">
           <div className="px-4 py-2 space-y-1">
              <input
                 type="text"
                 placeholder="Search..."
-                className="w-full pl-4 pr-4 py-2 mb-2 rounded-md border border-gray-300 focus:outline-none focus:border-primary"
+                value={keyword}
+                onChange={(e) => setKeyword(e.target.value)}
+                className="w-full pl-4 pr-4 py-2 mb-2 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-primary transition-colors duration-300"
               />
-            <Link to="/courses" className="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 rounded-md">
+            <Link to="/courses" className="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md transition-colors duration-300">
               Categories
             </Link>
             {!user && (
               <>
-                <Link to="/login" className="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 rounded-md">
+                <Link to="/login" className="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md transition-colors duration-300">
                   Log in
                 </Link>
-                <Link to="/register" className="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 rounded-md">
+                <Link to="/register" className="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md transition-colors duration-300">
                   Sign up
                 </Link>
               </>

@@ -35,7 +35,7 @@ const Dashboard = () => {
   return (
     <div className="space-y-8">
       {/* Personal Study Space Banner */}
-      <div className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-2xl p-8 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
+      <div className="bg-gradient-to-r from-gray-900 to-gray-800 dark:from-gray-800 dark:to-gray-900 rounded-2xl p-8 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 border border-gray-700">
         <div>
           <h1 className="text-3xl font-bold mb-2">Welcome back, {user?.name}!</h1>
           <p className="text-gray-300 max-w-xl">
@@ -53,13 +53,13 @@ const Dashboard = () => {
       </div>
 
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-gray-900">My Enrolled Courses</h2>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">My Enrolled Courses</h2>
       </div>
 
-      <div className="bg-white p-6 rounded-lg border border-gray-200">
+      <div className="bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
         {purchasedCourses.length === 0 ? (
           <div className="text-center py-10">
-            <p className="text-gray-500 mb-4">You haven't enrolled in any courses yet.</p>
+            <p className="text-gray-500 dark:text-gray-400 mb-4">You haven't enrolled in any courses yet.</p>
             <Link to="/" className="text-primary font-bold hover:underline">
               Browse Courses
             </Link>

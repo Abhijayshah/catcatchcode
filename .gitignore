@@ -37,3 +37,6 @@ Thumbs.db
 
 # Testing
 coverage/
+dark-view-doc.md
+DEPLOYMENT.md
+details-for-developer.md
