@@ -159,7 +159,7 @@ const Home = () => {
             alt="Cat" 
             className="w-full h-auto rounded-lg mb-6 shadow-lg border-4 border-white dark:border-gray-800"
           />
-          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white leading-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-gray-900 dark:text-white leading-tight">
             Study Smarter.<br />
             <span className="text-purple-600">Stay Focused.</span>
           </h1>

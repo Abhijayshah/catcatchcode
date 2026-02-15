@@ -31,7 +31,7 @@ const Navbar = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
             <img src="/assets/logo.svg" alt="CatCatchCode Logo" className="w-8 h-8 rounded-lg" />
-            <span className="text-xl font-bold text-gray-900 dark:text-white hidden sm:block">CatCatchCode</span>
+            <span className="text-xl font-bold text-gray-900 dark:text-white">CatCatchCode</span>
           </Link>
 
           {/* Search Bar - Desktop */}
