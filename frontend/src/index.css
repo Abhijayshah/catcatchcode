@@ -29,20 +29,24 @@
 }
 
 body {
-  @apply bg-white text-gray-900 font-sans dark:bg-[#0F0C29] dark:text-gray-300 transition-colors duration-300;
+  @apply bg-white text-gray-900 font-sans dark:bg-[#0F0C29] dark:text-gray-200 transition-colors duration-300;
 }
 
 /* Glassmorphism Classes */
 .glass {
-  @apply bg-white/5 backdrop-blur-lg border border-white/10;
+  @apply bg-white/5 backdrop-blur-lg border border-white/10 dark:bg-black/20;
 }
 
 .glass-card {
-  @apply bg-white/5 backdrop-blur-lg border border-white/10 shadow-[0_0_20px_rgba(108,99,255,0.15)] hover:shadow-[0_0_25px_rgba(108,99,255,0.3)] transition-all duration-300;
+  @apply bg-white/5 backdrop-blur-lg border border-white/10 dark:bg-[#1a1c3d]/60 shadow-[0_0_20px_rgba(108,99,255,0.1)] hover:shadow-[0_0_25px_rgba(108,99,255,0.25)] transition-all duration-300;
 }
 
 .text-gradient {
   @apply bg-clip-text text-transparent bg-linear-to-r from-[#6C63FF] to-[#00F5FF];
+}
+
+.text-glow {
+  text-shadow: 0 0 15px rgba(108,99,255,0.4);
 }
 
 .animation-delay-2000 {
