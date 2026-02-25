@@ -143,7 +143,7 @@ const Navbar = () => {
             <Link to="/courses" className="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md transition-colors duration-300">
               Categories
             </Link>
-            {!user && (
+            {!user ? (
               <>
                 <Link to="/login" className="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md transition-colors duration-300">
                   Log in
@@ -151,6 +151,23 @@ const Navbar = () => {
                 <Link to="/register" className="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md transition-colors duration-300">
                   Sign up
                 </Link>
+              </>
+            ) : (
+              <>
+                <Link to="/dashboard" className="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md transition-colors duration-300">
+                  My Dashboard
+                </Link>
+                {user.role === 'admin' && (
+                  <Link to="/admin/dashboard" className="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md transition-colors duration-300">
+                    Admin Panel
+                  </Link>
+                )}
+                <button
+                  onClick={handleLogout}
+                  className="block w-full text-left px-3 py-2 text-base font-medium text-red-600 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md transition-colors duration-300"
+                >
+                  Logout
+                </button>
               </>
             )}
           </div>
