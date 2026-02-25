@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { FileText, Download, ExternalLink } from 'lucide-react';
+import { FileText, Download, ExternalLink, Filter, Search, BookOpen } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const HandwrittenNotes = () => {
   const [activeCategory, setActiveCategory] = useState('All');
@@ -119,73 +120,130 @@ const HandwrittenNotes = () => {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col gap-4">
-        <h1 className="text-2xl font-bold text-gray-900">Handwritten Notes</h1>
-        
-        {/* Category Navigation */}
-        <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
-          {categories.map((category) => (
-            <button
-              key={category}
-              onClick={() => setActiveCategory(category)}
-              className={`px-4 py-2 text-sm font-medium rounded-full whitespace-nowrap transition-colors ${
-                activeCategory === category
-                  ? 'bg-primary text-white'
-                  : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'
-              }`}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
+    <div className="relative min-h-screen pb-20">
+      {/* Background Blobs */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <div className="absolute top-[10%] left-[-5%] w-[500px] h-[500px] bg-[#00F5FF]/5 rounded-full blur-[120px] animate-pulse-slow" />
+        <div className="absolute bottom-[10%] right-[-5%] w-[500px] h-[500px] bg-[#6C63FF]/5 rounded-full blur-[120px] animate-pulse-slow" />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredNotes.map((note) => (
-          <div key={note.id} className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow border border-gray-100 flex flex-col h-full">
-            <div className="h-48 overflow-hidden bg-gray-100 relative group cursor-pointer" onClick={() => handleOpenPdf(note.pdfUrl)}>
-              <img 
-                src={note.preview} 
-                alt={note.title}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 opacity-90 group-hover:opacity-100"
-                crossOrigin="anonymous"
-                referrerPolicy="no-referrer"
-              />
-              <div className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/10 transition-colors">
-                <div className="bg-white/90 p-3 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
-                  <ExternalLink className="w-6 h-6 text-primary" />
-                </div>
-              </div>
-            </div>
-            
-            <div className="p-5 flex-1 flex flex-col">
-              <div className="flex items-center gap-2 mb-3">
-                <FileText className="w-4 h-4 text-gray-400" />
-                <span className="text-xs font-medium text-primary bg-primary/5 px-2 py-1 rounded">
-                  {note.category}
-                </span>
-              </div>
-              
-              <h3 className="font-semibold text-gray-900 mb-2 hover:text-primary cursor-pointer transition-colors" onClick={() => handleOpenPdf(note.pdfUrl)}>
-                {note.title}
-              </h3>
-              
-              <div className="mt-auto pt-4 border-t border-gray-50 flex items-center justify-between text-sm text-gray-500">
-                <span>{note.pages} pages</span>
-                <span>{note.size}</span>
-              </div>
-              
-              <button 
-                onClick={() => handleOpenPdf(note.pdfUrl)}
-                className="mt-4 w-full flex items-center justify-center gap-2 px-4 py-2 bg-gray-50 hover:bg-gray-100 text-gray-700 font-medium rounded-lg transition-colors"
+      <div className="relative z-10 space-y-10">
+        {/* Header Section */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="space-y-1"
+          >
+            <h1 className="text-4xl md:text-5xl font-black text-gray-900 dark:text-white tracking-tight">
+              Handwritten <span className="text-gradient">Notes</span>
+            </h1>
+            <p className="text-gray-500 dark:text-gray-400 font-bold uppercase tracking-[0.2em] text-[10px]">
+              Premium study materials by experts
+            </p>
+          </motion.div>
+
+          <div className="flex items-center gap-4 overflow-x-auto pb-2 no-scrollbar max-w-full md:max-w-xl">
+            {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => setActiveCategory(category)}
+                className={`px-6 py-2.5 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all whitespace-nowrap ${
+                  activeCategory === category
+                    ? 'bg-linear-to-r from-[#6C63FF] to-[#00F5FF] text-white shadow-lg shadow-[#6C63FF]/20'
+                    : 'bg-white/5 text-gray-500 hover:text-white hover:bg-white/10 border border-white/5'
+                }`}
               >
-                <Download className="w-4 h-4" />
-                Download PDF
+                {category}
               </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Notes Grid */}
+        <motion.div 
+          layout
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
+          <AnimatePresence mode='popLayout'>
+            {filteredNotes.map((note, i) => (
+              <motion.div
+                key={note.id}
+                layout
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ delay: i * 0.05 }}
+                className="glass-card rounded-[2.5rem] overflow-hidden flex flex-col group border-white/5 hover:border-[#6C63FF]/30 transition-all duration-500"
+              >
+                <div 
+                  className="h-56 overflow-hidden relative cursor-pointer" 
+                  onClick={() => handleOpenPdf(note.pdfUrl)}
+                >
+                  <img 
+                    src={note.preview} 
+                    alt={note.title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-80 group-hover:opacity-100"
+                    crossOrigin="anonymous"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0F0C29] via-transparent to-transparent opacity-60" />
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/20 transition-all duration-500">
+                    <div className="w-14 h-14 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500">
+                      <ExternalLink className="w-6 h-6 text-white" />
+                    </div>
+                  </div>
+                  <div className="absolute top-4 left-4">
+                    <span className="px-3 py-1 bg-[#6C63FF]/80 backdrop-blur-md text-white text-[10px] font-black rounded-full uppercase tracking-widest border border-white/10">
+                      {note.category}
+                    </span>
+                  </div>
+                </div>
+                
+                <div className="p-8 flex-1 flex flex-col">
+                  <div className="flex items-center gap-2 mb-4">
+                    <FileText className="w-4 h-4 text-[#00F5FF]" />
+                    <span className="text-[10px] font-black text-gray-500 dark:text-gray-400 uppercase tracking-widest">
+                      Resource PDF
+                    </span>
+                  </div>
+                  
+                  <h3 
+                    className="text-xl font-black text-gray-900 dark:text-white mb-4 leading-tight group-hover:text-gradient transition-all cursor-pointer" 
+                    onClick={() => handleOpenPdf(note.pdfUrl)}
+                  >
+                    {note.title}
+                  </h3>
+                  
+                  <div className="mt-auto pt-6 border-t border-white/5 flex items-center justify-between text-[10px] font-black text-gray-500 uppercase tracking-widest">
+                    <span className="bg-white/5 px-3 py-1 rounded-lg">{note.pages} pages</span>
+                    <span className="bg-white/5 px-3 py-1 rounded-lg">{note.size}</span>
+                  </div>
+                  
+                  <button 
+                    onClick={() => handleOpenPdf(note.pdfUrl)}
+                    className="mt-6 w-full flex items-center justify-center gap-2 py-4 bg-white/5 hover:bg-[#6C63FF] text-white font-black text-xs rounded-2xl uppercase tracking-widest transition-all duration-300 border border-white/10 hover:border-transparent active:scale-95 group/btn"
+                  >
+                    <Download className="w-4 h-4 group-hover/btn:-translate-y-0.5 transition-transform" />
+                    Download PDF
+                  </button>
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
+
+        {filteredNotes.length === 0 && (
+          <div className="glass-card p-20 rounded-[2.5rem] text-center space-y-6">
+            <div className="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center mx-auto">
+              <BookOpen className="w-10 h-10 text-gray-600" />
+            </div>
+            <div className="space-y-2">
+              <p className="text-gray-500 font-black uppercase tracking-widest text-xs">No notes in this category</p>
+              <p className="text-gray-600 dark:text-gray-500 text-sm max-w-xs mx-auto">Check back later or explore other categories.</p>
             </div>
           </div>
-        ))}
+        )}
       </div>
     </div>
   );

@@ -205,15 +205,7 @@ const Home = () => {
             {/* Title & Info */}
             <div className="flex-1 pb-2">
               <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-                <div className="space-y-2">
-                  <p className="text-lg sm:text-xl md:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-cyan-500 dark:from-purple-400 dark:to-cyan-300">
-                    Master DSA, MERN & AI
-                  </p>
-                  <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 font-medium flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-purple-500" />
-                    Notes • Videos • AI Tools • Hackathons
-                  </p>
-                </div>
+                <div className="flex-1" />
                 
                 <div className="flex flex-wrap gap-3">
                   <a
@@ -253,22 +245,55 @@ const Home = () => {
           </div>
           
           {/* Description */}
-          <div className="mt-8 max-w-4xl">
-            <p className="text-lg text-gray-600 dark:text-gray-200 leading-relaxed font-medium">
-              ✨ Providing resources for students and developers. Master MERN Stack, Full Stack Development, iOS, and Flutter. Get project-related tips to win hackathons and build cutting-edge AI agents with n8n and custom automation.
-            </p>
+          <div className="mt-8 space-y-6 max-w-4xl">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-[2px] bg-[#00F5FF] rounded-full" />
+              <p className="text-gray-500 dark:text-gray-400 font-black uppercase tracking-[0.3em] text-[10px]">
+                Neural Skill Network
+              </p>
+            </div>
+            
+            <div className="flex flex-wrap gap-3">
+              {[
+                { name: "Android", color: "from-[#6C63FF] to-[#00F5FF]" },
+                { name: "Flutter", color: "from-[#6C63FF] to-[#00F5FF]" },
+                { name: "iOS", color: "from-[#6C63FF] to-[#00F5FF]" },
+                { name: "MERN", color: "from-[#6C63FF] to-[#00F5FF]" },
+                { name: "Full Stack Development", color: "from-[#6C63FF] to-[#00F5FF]" },
+                { name: "n8n AI Automation", color: "from-[#00F5FF] to-[#00D1FF]" },
+                { name: "AI Agent", color: "from-[#00F5FF] to-[#00D1FF]" },
+                { name: "LangChain", color: "from-[#00F5FF] to-[#00D1FF]" },
+                { name: "OpenAI", color: "from-[#00F5FF] to-[#00D1FF]" },
+                { name: "Custom Automation", color: "from-[#00F5FF] to-[#00D1FF]" },
+                { name: "Hackathons", color: "from-[#bf5af2] to-[#ff375f]" },
+                { name: "DSA", color: "from-[#bf5af2] to-[#ff375f]" },
+                { name: "Video Tutorials", color: "from-[#bf5af2] to-[#ff375f]" },
+                { name: "Expert Notes", color: "from-[#bf5af2] to-[#ff375f]" }
+              ].map((skill) => (
+                <motion.span 
+                  key={skill.name}
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  className="px-5 py-2.5 bg-white/10 dark:bg-white/5 border border-white/10 dark:border-white/10 rounded-2xl text-[11px] font-black text-white uppercase tracking-widest relative overflow-hidden group transition-all cursor-default shadow-[0_4px_20px_rgba(0,0,0,0.3)]"
+                >
+                  <div className={`absolute inset-0 bg-linear-to-r ${skill.color} opacity-0 group-hover:opacity-10 transition-opacity`} />
+                  <span className={`bg-linear-to-r ${skill.color} bg-clip-text text-transparent group-hover:text-white transition-colors`}>
+                    {skill.name}
+                  </span>
+                </motion.span>
+              ))}
+            </div>
           </div>
         </div>
       </motion.div>
 
       {/* Features Section */}
-      <div className="space-y-16 relative z-10 px-4 sm:px-0">
+      <div className="space-y-16 relative z-10 px-4 sm:px-0 mt-20">
         <div className="text-center max-w-3xl mx-auto space-y-4">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white tracking-tight">
-            Everything You Need to <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-cyan-500">Succeed</span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight">
+            Everything You Need to <span className="text-transparent bg-clip-text bg-linear-to-r from-[#6C63FF] to-[#00F5FF]">Succeed</span>
           </h2>
-          <p className="text-gray-600 dark:text-gray-100 text-lg md:text-xl font-semibold leading-relaxed">
-            We provide a comprehensive ecosystem of resources designed to help students and developers learn effectively.
+          <p className="text-gray-400 text-lg md:text-xl font-bold leading-relaxed uppercase tracking-widest text-[12px]">
+            We provide a comprehensive neural network of resources designed for elite performance.
           </p>
         </div>
         
@@ -290,13 +315,13 @@ const Home = () => {
               <div className={`w-14 h-14 ${feature.bg} dark:bg-opacity-20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-xl shadow-purple-500/10`}>
                 {feature.icon}
               </div>
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+              <h3 className="text-xl font-black text-white mb-3 group-hover:text-gradient transition-all">
                 {feature.title}
               </h3>
-              <p className="text-gray-500 dark:text-gray-300 text-sm mb-6 leading-relaxed font-medium">
+              <p className="text-gray-400 text-sm mb-6 leading-relaxed font-bold tracking-wide">
                 {feature.description}
               </p>
-              <Link to={feature.link} className="inline-flex items-center text-purple-600 dark:text-purple-400 font-extrabold text-sm hover:gap-3 transition-all group/link">
+              <Link to={feature.link} className="inline-flex items-center text-[#00F5FF] font-black text-[10px] uppercase tracking-[0.2em] hover:gap-3 transition-all group/link group-hover:text-white">
                 Get Started <ArrowRight className="w-4 h-4 ml-2 group-hover/link:translate-x-1 transition-transform" />
               </Link>
             </motion.div>
@@ -310,12 +335,10 @@ const Home = () => {
           <div className="absolute inset-0 bg-gradient-to-br from-purple-600/10 to-cyan-500/10 opacity-50 group-hover:opacity-70 transition-opacity" />
           <div className="relative z-10 space-y-10">
             <div className="space-y-6">
-              <h2 className="text-4xl md:text-6xl font-black tracking-tighter">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-cyan-500 dark:from-purple-400 dark:to-cyan-300">
-                  Join Our Community
-                </span>
+              <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-white">
+                Join Our <span className="text-gradient">Community</span>
               </h2>
-              <p className="text-gray-600 dark:text-gray-100 max-w-2xl mx-auto text-xl font-extrabold leading-relaxed">
+              <p className="text-gray-400 max-w-2xl mx-auto text-lg md:text-xl font-bold leading-relaxed uppercase tracking-widest text-[12px]">
                 Connect with our growing 10k+ learners. Get instant updates on tutorials, AI tools, and hackathon strategies.
               </p>
             </div>
@@ -342,19 +365,26 @@ const Home = () => {
 
       {/* Featured Courses */}
       <div id="courses" className="space-y-12 relative z-10 px-4 sm:px-0">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 border-b border-gray-100 dark:border-white/5 pb-8">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 border-b border-white/5 pb-8">
           <div className="space-y-2 text-center sm:text-left">
-            <h2 className="text-3xl sm:text-4xl font-black text-gray-900 dark:text-white tracking-tight">Featured Learning Paths</h2>
-            <p className="text-gray-500 dark:text-cyan-400 font-black uppercase tracking-widest text-[10px]">Master the most in-demand skills</p>
+            <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight">Featured Learning Paths</h2>
+            <p className="text-[#00F5FF] font-black uppercase tracking-widest text-[10px]">Master the most in-demand skills</p>
           </div>
-          <Link to="/courses" className="inline-flex items-center gap-3 px-8 py-3 rounded-2xl bg-purple-600 text-white font-black hover:bg-purple-700 transition-all shadow-xl shadow-purple-600/20 active:scale-95 group">
+          <Link to="/courses" className="inline-flex items-center gap-3 px-8 py-3 rounded-2xl bg-linear-to-r from-[#6C63FF] to-[#00F5FF] text-white font-black hover:shadow-[0_0_20px_rgba(108,99,255,0.4)] transition-all active:scale-95 group">
             Explore All Courses <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
         
         {courses.length === 0 ? (
-          <div className="text-center py-20 glass-card rounded-3xl border border-dashed border-gray-300 dark:border-white/10">
-            <p className="text-gray-500 dark:text-gray-400 font-bold">New paths are being crafted. Check back soon!</p>
+          <div className="text-center py-24 glass-card rounded-[2.5rem] border border-dashed border-white/10 relative overflow-hidden group">
+            <div className="absolute inset-0 bg-gradient-to-br from-[#6C63FF]/5 to-[#00F5FF]/5 opacity-50 group-hover:opacity-100 transition-opacity" />
+            <div className="relative z-10 space-y-4">
+              <div className="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                <BookOpen className="w-8 h-8 text-[#6C63FF]" />
+              </div>
+              <p className="text-white font-black uppercase tracking-widest text-xs">Neural Synthesis in Progress</p>
+              <p className="text-gray-400 text-sm max-w-xs mx-auto font-bold">New paths are being crafted by our elite engineers. Check back soon for deployment.</p>
+            </div>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">

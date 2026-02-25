@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Book, ChevronRight, Hash } from 'lucide-react';
+import { Book, ChevronRight, Hash, Clock, Sparkles, ArrowRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import HTMLTutorial from '../components/HTMLTutorial';
 
 const TopicNotes = () => {
@@ -107,70 +108,106 @@ const TopicNotes = () => {
     : topics.filter(topic => topic.category === activeCategory);
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col gap-4">
-        <h1 className="text-2xl font-bold text-gray-900">Topic Notes</h1>
-        
-        {/* Category Navigation */}
-        <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
-          {categories.map((category) => (
-            <button
-              key={category}
-              onClick={() => setActiveCategory(category)}
-              className={`px-4 py-2 text-sm font-medium rounded-full whitespace-nowrap transition-colors ${
-                activeCategory === category
-                  ? 'bg-primary text-white'
-                  : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'
-              }`}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
+    <div className="relative min-h-screen pb-20">
+      {/* Background Blobs */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <div className="absolute top-[10%] left-[-5%] w-[500px] h-[500px] bg-[#00F5FF]/5 rounded-full blur-[120px] animate-pulse-slow" />
+        <div className="absolute bottom-[10%] right-[-5%] w-[500px] h-[500px] bg-[#6C63FF]/5 rounded-full blur-[120px] animate-pulse-slow" />
       </div>
 
-      {activeCategory === 'HTML' ? (
-        <HTMLTutorial />
-      ) : (
-        <div className="grid grid-cols-1 gap-4">
-          {filteredTopics.map((topic) => (
-            <div key={topic.id} className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow border border-gray-100 group cursor-pointer">
-              <div className="flex items-start justify-between">
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-600 text-xs font-medium">
-                      {topic.category}
-                    </span>
-                    <span className="text-gray-400 text-xs">•</span>
-                    <span className="text-gray-500 text-xs">{topic.readTime}</span>
-                  </div>
-                  
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-primary transition-colors">
-                    {topic.title}
-                  </h3>
-                  
-                  <p className="text-gray-600 mb-4 line-clamp-2">
-                    {topic.description}
-                  </p>
-                  
-                  <div className="flex items-center gap-3">
-                    {topic.tags.map((tag) => (
-                      <div key={tag} className="flex items-center gap-1 text-xs text-gray-500 bg-gray-50 px-2 py-1 rounded">
-                        <Hash className="w-3 h-3 text-gray-400" />
-                        {tag}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                
-                <div className="ml-4 flex items-center justify-center w-10 h-10 rounded-full bg-gray-50 group-hover:bg-primary/10 transition-colors">
-                  <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-primary transition-colors" />
-                </div>
-              </div>
-            </div>
-          ))}
+      <div className="relative z-10 space-y-10">
+        {/* Header Section */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="space-y-1"
+          >
+            <h1 className="text-4xl md:text-5xl font-black text-gray-900 dark:text-white tracking-tight">
+              Topic <span className="text-gradient">Notes</span>
+            </h1>
+            <p className="text-gray-500 dark:text-gray-400 font-bold uppercase tracking-[0.2em] text-[10px]">
+              Comprehensive guides for every concept
+            </p>
+          </motion.div>
+
+          <div className="flex items-center gap-4 overflow-x-auto pb-2 no-scrollbar max-w-full md:max-w-xl">
+            {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => setActiveCategory(category)}
+                className={`px-6 py-2.5 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all whitespace-nowrap ${
+                  activeCategory === category
+                    ? 'bg-linear-to-r from-[#6C63FF] to-[#00F5FF] text-white shadow-lg shadow-[#6C63FF]/20'
+                    : 'bg-white/5 text-gray-500 hover:text-white hover:bg-white/10 border border-white/5'
+                }`}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
         </div>
-      )}
+
+        {activeCategory === 'HTML' ? (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+          >
+            <HTMLTutorial />
+          </motion.div>
+        ) : (
+          <div className="grid grid-cols-1 gap-6">
+            <AnimatePresence mode='popLayout'>
+              {filteredTopics.map((topic, i) => (
+                <motion.div 
+                  key={topic.id}
+                  layout
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ delay: i * 0.05 }}
+                  className="glass-card p-8 rounded-[2rem] border-white/5 group cursor-pointer hover:border-[#6C63FF]/30 transition-all duration-300"
+                >
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                    <div className="flex-1 space-y-4">
+                      <div className="flex items-center gap-3">
+                        <span className="px-3 py-1 bg-[#6C63FF]/20 text-[#00F5FF] text-[10px] font-black rounded-full uppercase tracking-widest border border-[#6C63FF]/20">
+                          {topic.category}
+                        </span>
+                        <div className="flex items-center gap-2 text-[10px] font-black text-gray-500 uppercase tracking-widest">
+                          <Clock className="w-3.5 h-3.5" />
+                          {topic.readTime}
+                        </div>
+                      </div>
+                      
+                      <h3 className="text-2xl font-black text-gray-900 dark:text-white tracking-tight group-hover:text-gradient transition-all">
+                        {topic.title}
+                      </h3>
+                      
+                      <p className="text-gray-500 dark:text-gray-400 font-bold leading-relaxed max-w-3xl">
+                        {topic.description}
+                      </p>
+                      
+                      <div className="flex flex-wrap items-center gap-3">
+                        {topic.tags.map((tag) => (
+                          <div key={tag} className="flex items-center gap-1.5 text-[10px] font-black text-gray-500 bg-white/5 px-3 py-1.5 rounded-lg border border-white/5 uppercase tracking-widest">
+                            <Hash className="w-3.5 h-3.5 text-[#bf5af2]" />
+                            {tag}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    
+                    <div className="shrink-0 flex items-center justify-center w-14 h-14 rounded-2xl bg-white/5 border border-white/5 group-hover:bg-[#6C63FF] transition-all duration-300 group-hover:shadow-[0_0_20px_rgba(108,99,255,0.4)]">
+                      <ChevronRight className="w-7 h-7 text-gray-500 group-hover:text-white transition-all group-hover:translate-x-0.5" />
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

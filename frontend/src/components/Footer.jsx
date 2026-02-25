@@ -1,125 +1,137 @@
-import { Github, Twitter, Facebook, Linkedin, Instagram, Youtube, Mail } from 'lucide-react';
+import { Github, Twitter, Facebook, Linkedin, Instagram, Youtube, Mail, Sparkles, Send } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ContactForm from './ContactForm';
+import { motion } from 'framer-motion';
 
 const Footer = () => {
   const socialLinks = [
-    { name: 'Team Lead (Abhijay Shah)', icon: <Youtube className="w-5 h-5" />, url: 'https://www.youtube.com/channel/UCX8i_v1eL9VuLWG1fKwEXhw', color: 'hover:text-red-600' },
-    { name: 'Official Channel', icon: <Youtube className="w-5 h-5" />, url: 'https://www.youtube.com/channel/UCgzmNjDq8kI3StWFrIv7QZg', color: 'hover:text-red-600' },
-    { name: 'Instagram', icon: <Instagram className="w-5 h-5" />, url: 'https://www.instagram.com/cat_catch_code/', color: 'hover:text-pink-600' },
-    { name: 'LinkedIn', icon: <Linkedin className="w-5 h-5" />, url: 'https://www.linkedin.com/in/catcatchcode/', color: 'hover:text-blue-600' },
-    { name: 'Twitter', icon: <Twitter className="w-5 h-5" />, url: 'https://x.com/catcatchcode', color: 'hover:text-blue-400' },
-    { name: 'GitHub', icon: <Github className="w-5 h-5" />, url: 'https://github.com/catcatchcode', color: 'hover:text-gray-900' },
-    { name: 'Facebook', icon: <Facebook className="w-5 h-5" />, url: 'https://www.facebook.com/catcatcatchcode', color: 'hover:text-blue-700' },
-    { name: 'Reddit', icon: <span className="font-bold text-lg leading-none">R</span>, url: 'https://www.reddit.com/user/Super_Cartoonist1246/', color: 'hover:text-orange-600' },
+    { icon: <Youtube className="w-5 h-5" />, url: 'https://www.youtube.com/channel/UCgzmNjDq8kI3StWFrIv7QZg', color: '#FF0000', label: 'YouTube' },
+    { icon: <Instagram className="w-5 h-5" />, url: 'https://www.instagram.com/cat_catch_code/', color: '#E4405F', label: 'Instagram' },
+    { icon: <Linkedin className="w-5 h-5" />, url: 'https://www.linkedin.com/in/catcatchcode/', color: '#0077B5', label: 'LinkedIn' },
+    { icon: <Twitter className="w-5 h-5" />, url: 'https://x.com/catcatchcode', color: '#1DA1F2', label: 'X' },
+    { icon: <Github className="w-5 h-5" />, url: 'https://github.com/catcatchcode', color: '#6e5494', label: 'GitHub' },
+    { icon: <Facebook className="w-5 h-5" />, url: 'https://www.facebook.com/profile.php?id=61584628988988', color: '#1877F2', label: 'Facebook' },
   ];
 
   return (
-    <footer className="bg-white dark:bg-[#0F0C29] border-t border-gray-200 dark:border-white/10 mt-12 transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 sm:gap-10">
+    <footer className="relative bg-white dark:bg-[#0F0C29] border-t border-gray-200 dark:border-white/10 mt-20 transition-all duration-500 overflow-hidden">
+      {/* Footer Blobs */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-30">
+        <div className="absolute bottom-[-10%] left-[-5%] w-[400px] h-[400px] bg-[#00F5FF]/5 rounded-full blur-[100px]" />
+        <div className="absolute bottom-[-10%] right-[-5%] w-[400px] h-[400px] bg-[#6C63FF]/5 rounded-full blur-[100px]" />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 sm:gap-16">
           {/* Brand & Description */}
-          <div className="space-y-4 md:col-span-2 lg:col-span-3">
-            <h3 className="text-xl font-bold text-primary dark:text-gradient">CatCatchCode</h3>
-            <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed max-w-xs">
-              Empowering developers with quality resources, tutorials, and a community-driven learning platform. Join us to master DSA, MERN, AI/ML and more.
+          <div className="space-y-6 md:col-span-2 lg:col-span-4">
+            <div className="flex items-center gap-3">
+                <div className="p-2 bg-linear-to-br from-[#6C63FF] to-[#00F5FF] rounded-xl shadow-lg shadow-purple-500/20">
+                    <Sparkles className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-2xl font-black text-primary dark:text-gradient tracking-tighter">CatCatchCode</h3>
+            </div>
+            <p className="text-gray-600 dark:text-gray-400 text-sm font-bold leading-relaxed max-w-sm">
+              Empowering the next generation of developers with high-octane resources, elite tutorials, and a community-driven neural network of learning. Join us to master the future of tech.
             </p>
+            <div className="flex flex-wrap gap-3">
+              {socialLinks.map((social, i) => (
+                <motion.a 
+                  key={i}
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  whileTap={{ scale: 0.9 }}
+                  href={social.url} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="p-3 bg-white/5 border border-white/5 rounded-xl text-gray-500 hover:text-white transition-all duration-300"
+                  style={{ '--hover-color': social.color }}
+                  aria-label={social.label}
+                >
+                  {social.icon}
+                </motion.a>
+              ))}
+            </div>
           </div>
 
           {/* Categories */}
-          <div className="lg:col-span-2">
-            <h3 className="text-sm font-semibold text-gray-900 dark:text-white tracking-wider uppercase mb-4">Categories</h3>
-            <ul className="space-y-3 text-sm">
-              <li>
-                <Link to="/video-resources" className="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors">Video Resources</Link>
-              </li>
-              <li>
-                <Link to="/handwritten-notes" className="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors">Handwritten Notes</Link>
-              </li>
-              <li>
-                <Link to="/ai-resources" className="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors">AI Tools & Prompts</Link>
-              </li>
-              <li>
-                <Link to="/topic-notes" className="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors">Topic Notes</Link>
-              </li>
-              <li>
-                <Link to="/lab-experiments" className="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors">Lab Experiments</Link>
-              </li>
-              <li>
-                <Link to="/previous-papers" className="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors">Previous Papers</Link>
-              </li>
-              <li>
-                <Link to="/portfolio-templates" className="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors">Portfolio Templates</Link>
-              </li>
-              <li>
-                <Link to="/study-space" className="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors">My Study Space</Link>
-              </li>
+          <div className="lg:col-span-2 space-y-6">
+            <h3 className="text-[10px] font-black text-gray-900 dark:text-white tracking-[0.2em] uppercase">Knowledge Hub</h3>
+            <ul className="space-y-4">
+              {[
+                { label: 'Video Tutorials', path: '/video-resources' },
+                { label: 'Expert Notes', path: '/handwritten-notes' },
+                { label: 'AI Power Tools', path: '/ai-resources' },
+                { label: 'Lab Manuals', path: '/lab-experiments' },
+                { label: 'Historical Papers', path: '/previous-papers' },
+                { label: 'Portfolio Assets', path: '/portfolio-templates' },
+              ].map((link) => (
+                <li key={link.path}>
+                  <Link to={link.path} className="text-gray-500 dark:text-gray-400 hover:text-[#00F5FF] font-bold text-xs transition-colors tracking-wide flex items-center gap-2 group">
+                    <div className="w-1 h-1 bg-white/10 rounded-full group-hover:bg-[#00F5FF] transition-all" />
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Quick Links */}
-          <div className="lg:col-span-2">
-            <h3 className="text-sm font-semibold text-gray-900 dark:text-white tracking-wider uppercase mb-4">Quick Links</h3>
-            <ul className="space-y-3 text-sm">
-              <li>
-                <Link to="/courses" className="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors">Browse Courses</Link>
-              </li>
-              <li>
-                <Link to="/register" className="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors">Create Account</Link>
-              </li>
-              <li>
-                <Link to="/login" className="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors">Login</Link>
-              </li>
-              <li>
-                <Link to="/dashboard" className="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors">My Dashboard</Link>
-              </li>
-              <li>
-                <a href="mailto:catcatchcode@gmail.com" className="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors">Contact Support</a>
-              </li>
+          <div className="lg:col-span-2 space-y-6">
+            <h3 className="text-[10px] font-black text-gray-900 dark:text-white tracking-[0.2em] uppercase">Neural Access</h3>
+            <ul className="space-y-4">
+              {[
+                { label: 'Elite Courses', path: '/courses' },
+                { label: 'Neural Dashboard', path: '/dashboard' },
+                { label: 'Personal Space', path: '/study-space' },
+                { label: 'Secure Login', path: '/login' },
+                { label: 'Join Network', path: '/register' },
+              ].map((link) => (
+                <li key={link.path}>
+                  <Link to={link.path} className="text-gray-500 dark:text-gray-400 hover:text-[#6C63FF] font-bold text-xs transition-colors tracking-wide flex items-center gap-2 group">
+                    <div className="w-1 h-1 bg-white/10 rounded-full group-hover:bg-[#6C63FF] transition-all" />
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Social Links */}
-          <div className="lg:col-span-2">
-            <h4 className="text-sm font-semibold text-gray-900 dark:text-white tracking-wider uppercase mb-4">Follow Us</h4>
-            <div className="flex flex-wrap gap-2 sm:gap-3">
-              <a href="https://www.youtube.com/channel/UCgzmNjDq8kI3StWFrIv7QZg" target="_blank" rel="noopener noreferrer" className="text-xl sm:text-2xl text-gray-500 dark:text-gray-400 hover:text-[#FF0000] dark:hover:text-[#FF0000] transition-all duration-300 hover:scale-110 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800" aria-label="YouTube">
-                <i className="fab fa-youtube"></i>
-              </a>
-              <a href="https://www.instagram.com/cat_catch_code/" target="_blank" rel="noopener noreferrer" className="text-xl sm:text-2xl text-gray-500 dark:text-gray-400 hover:text-[#E4405F] dark:hover:text-[#E4405F] transition-all duration-300 hover:scale-110 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800" aria-label="Instagram">
-                <i className="fab fa-instagram"></i>
-              </a>
-              <a href="https://www.linkedin.com/in/catcatchcode/" target="_blank" rel="noopener noreferrer" className="text-xl sm:text-2xl text-gray-500 dark:text-gray-400 hover:text-[#0077B5] dark:hover:text-[#0077B5] transition-all duration-300 hover:scale-110 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800" aria-label="LinkedIn">
-                <i className="fab fa-linkedin"></i>
-              </a>
-              <a href="https://x.com/catcatchcode" target="_blank" rel="noopener noreferrer" className="text-xl sm:text-2xl text-gray-500 dark:text-gray-400 hover:text-[#000000] dark:hover:text-[#000000] transition-all duration-300 hover:scale-110 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800" aria-label="X (Twitter)">
-                <i className="fab fa-x-twitter"></i>
-              </a>
-              <a href="https://github.com/catcatchcode" target="_blank" rel="noopener noreferrer" className="text-xl sm:text-2xl text-gray-500 dark:text-gray-400 hover:text-[#181717] dark:hover:text-[#181717] transition-all duration-300 hover:scale-110 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800" aria-label="GitHub">
-                <i className="fab fa-github"></i>
-              </a>
-              <a href="https://www.facebook.com/profile.php?id=61584628988988" target="_blank" rel="noopener noreferrer" className="text-xl sm:text-2xl text-gray-500 dark:text-gray-400 hover:text-[#1877F2] dark:hover:text-[#1877F2] transition-all duration-300 hover:scale-110 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800" aria-label="Facebook">
-                <i className="fab fa-facebook"></i>
-              </a>
-              <a href="https://www.reddit.com/user/Super_Cartoonist1246/" target="_blank" rel="noopener noreferrer" className="text-xl sm:text-2xl text-gray-500 dark:text-gray-400 hover:text-[#FF4500] dark:hover:text-[#FF4500] transition-all duration-300 hover:scale-110 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800" aria-label="Reddit">
-                <i className="fab fa-reddit"></i>
-              </a>
-            </div>
-          </div>
-
           {/* Contact Form Section */}
-          <div className="md:col-span-2 lg:col-span-3">
-            <ContactForm />
+          <div className="md:col-span-2 lg:col-span-4 glass-card p-8 rounded-[2.5rem] border-white/5 relative overflow-hidden group">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#00F5FF]/10 to-transparent blur-3xl -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700" />
+            <div className="relative z-10 space-y-6">
+                <div className="flex items-center gap-3">
+                    <Send className="w-5 h-5 text-[#00F5FF]" />
+                    <h3 className="text-[10px] font-black text-white tracking-[0.2em] uppercase">Direct Transmission</h3>
+                </div>
+                <ContactForm />
+            </div>
           </div>
         </div>
 
-        <div className="border-t border-gray-200 dark:border-gray-800 mt-8 sm:mt-12 pt-6 sm:pt-8 flex flex-col md:flex-row justify-between items-center gap-3 sm:gap-4">
-          <p className="text-gray-500 dark:text-gray-400 text-sm">
-            © {new Date().getFullYear()} CatCatchCode. All rights reserved.
-          </p>
-          <div className="flex gap-4 sm:gap-6 text-sm text-gray-500 dark:text-gray-400">
-            <a href="#" className="hover:text-primary transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-primary transition-colors">Terms of Service</a>
+        {/* Bottom Bar */}
+        <div className="border-t border-white/5 mt-20 pt-10 flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="flex flex-col items-center md:items-start gap-2">
+            <p className="text-gray-500 dark:text-gray-500 text-[10px] font-black uppercase tracking-[0.1em]">
+              © {new Date().getFullYear()} CatCatchCode Neural Network. All systems operational.
+            </p>
+            <div className="flex gap-6 text-[10px] font-black text-gray-600 uppercase tracking-widest">
+              <a href="#" className="hover:text-[#00F5FF] transition-colors">Privacy Protocol</a>
+              <a href="#" className="hover:text-[#6C63FF] transition-colors">Usage Terms</a>
+            </div>
+          </div>
+          
+          <div className="flex items-center gap-4">
+            <div className="flex -space-x-2">
+                {[1, 2, 3, 4].map((i) => (
+                    <div key={i} className="w-8 h-8 rounded-full border-2 border-[#0F0C29] bg-white/10 backdrop-blur-md flex items-center justify-center text-[10px] font-black text-white overflow-hidden">
+                        <img src={`https://i.pravatar.cc/100?img=${i+10}`} alt="User" className="w-full h-full object-cover opacity-80" />
+                    </div>
+                ))}
+            </div>
+            <span className="text-[10px] font-black text-gray-500 uppercase tracking-widest">
+              Join <span className="text-white">5,000+</span> Elite Devs
+            </span>
           </div>
         </div>
       </div>

@@ -1,15 +1,16 @@
 import { useState } from 'react';
-import { Bot, Sparkles, Brain, Cpu, MessageSquare, Search, Zap, Crown } from 'lucide-react';
+import { Bot, Sparkles, Brain, Cpu, MessageSquare, Search, Zap, Crown, ArrowRight, ExternalLink } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const AIResources = () => {
   const [activeTab, setActiveTab] = useState('tools');
 
   const tools = [
-    { id: 1, name: 'CodeHelper AI', description: 'Advanced code completion and debugging assistant tailored for students.', icon: <Bot className="w-8 h-8 text-blue-500" />, category: 'Coding Assistant', status: 'Free', users: '10k+' },
-    { id: 2, name: 'NoteSummarizer', description: 'Instantly summarize long lecture notes and PDFs into concise bullet points.', icon: <MessageSquare className="w-8 h-8 text-green-500" />, category: 'Productivity', status: 'Freemium', users: '5k+' },
-    { id: 3, name: 'AlgorithmVisualizer', description: 'AI-powered visualization of complex algorithms and data structures.', icon: <Brain className="w-8 h-8 text-purple-500" />, category: 'Learning', status: 'Premium', users: '2k+' },
-    { id: 4, name: 'InterviewBot', description: 'Mock technical interviews with real-time feedback on your answers.', icon: <Cpu className="w-8 h-8 text-orange-500" />, category: 'Career', status: 'Free Trial', users: '8k+' },
-    { id: 5, name: 'ProjectGenerator', description: 'Generate full-stack project ideas with starter code and roadmaps.', icon: <Sparkles className="w-8 h-8 text-yellow-500" />, category: 'Projects', status: 'Free', users: '15k+' },
+    { id: 1, name: 'CodeHelper AI', description: 'Advanced code completion and debugging assistant tailored for students.', icon: <Bot className="w-8 h-8" />, category: 'Coding Assistant', status: 'Free', users: '10k+', color: '#6C63FF' },
+    { id: 2, name: 'NoteSummarizer', description: 'Instantly summarize long lecture notes and PDFs into concise bullet points.', icon: <MessageSquare className="w-8 h-8" />, category: 'Productivity', status: 'Freemium', users: '5k+', color: '#00F5FF' },
+    { id: 3, name: 'AlgorithmVisualizer', description: 'AI-powered visualization of complex algorithms and data structures.', icon: <Brain className="w-8 h-8" />, category: 'Learning', status: 'Premium', users: '2k+', color: '#bf5af2' },
+    { id: 4, name: 'InterviewBot', description: 'Mock technical interviews with real-time feedback on your answers.', icon: <Cpu className="w-8 h-8" />, category: 'Career', status: 'Free Trial', users: '8k+', color: '#FFD700' },
+    { id: 5, name: 'ProjectGenerator', description: 'Generate full-stack project ideas with starter code and roadmaps.', icon: <Sparkles className="w-8 h-8" />, category: 'Projects', status: 'Free', users: '15k+', color: '#6C63FF' },
   ];
 
   const prompts = [
@@ -28,126 +29,172 @@ const AIResources = () => {
   ];
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-          <Bot className="w-6 h-6 text-primary" />
-          AI Resources
-        </h1>
+    <div className="relative min-h-screen pb-20">
+      {/* Background Blobs */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <div className="absolute top-[10%] left-[-5%] w-[500px] h-[500px] bg-[#00F5FF]/5 rounded-full blur-[120px] animate-pulse-slow" />
+        <div className="absolute bottom-[10%] right-[-5%] w-[500px] h-[500px] bg-[#6C63FF]/5 rounded-full blur-[120px] animate-pulse-slow" />
       </div>
 
-      {/* Internal Navigation */}
-      <div className="flex p-1 space-x-1 bg-gray-100/80 rounded-xl w-fit">
-        <button
-          onClick={() => setActiveTab('tools')}
-          className={`px-4 py-2 text-sm font-medium rounded-lg transition-all ${
-            activeTab === 'tools'
-              ? 'bg-white text-gray-900 shadow-sm'
-              : 'text-gray-500 hover:text-gray-900'
-          }`}
-        >
-          AI Tools
-        </button>
-        <button
-          onClick={() => setActiveTab('prompts')}
-          className={`px-4 py-2 text-sm font-medium rounded-lg transition-all ${
-            activeTab === 'prompts'
-              ? 'bg-white text-gray-900 shadow-sm'
-              : 'text-gray-500 hover:text-gray-900'
-          }`}
-        >
-          AI Prompts
-        </button>
-        <button
-          onClick={() => setActiveTab('premium')}
-          className={`px-4 py-2 text-sm font-medium rounded-lg transition-all flex items-center gap-2 ${
-            activeTab === 'premium'
-              ? 'bg-white text-gray-900 shadow-sm'
-              : 'text-gray-500 hover:text-gray-900'
-          }`}
-        >
-          <Crown className="w-4 h-4 text-amber-500" />
-          Premium @ Low Cost
-        </button>
-      </div>
+      <div className="relative z-10 space-y-10">
+        {/* Header Section */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="space-y-1"
+          >
+            <h1 className="text-4xl md:text-5xl font-black text-gray-900 dark:text-white tracking-tight">
+              AI <span className="text-gradient">Resources</span>
+            </h1>
+            <p className="text-gray-500 dark:text-gray-400 font-bold uppercase tracking-[0.2em] text-[10px]">
+              Supercharge your learning with AI
+            </p>
+          </motion.div>
 
-      {/* Content */}
-      <div className="mt-6">
-        {activeTab === 'tools' && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {tools.map((tool) => (
-              <div key={tool.id} className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow border border-gray-100 group">
-                <div className="flex items-start justify-between mb-4">
-                  <div className="p-3 bg-gray-50 rounded-xl group-hover:scale-110 transition-transform duration-300">
-                    {tool.icon}
-                  </div>
-                  <span className={`px-2.5 py-1 rounded-full text-xs font-medium ${
-                    tool.status === 'Free' ? 'bg-green-50 text-green-700' :
-                    tool.status === 'Premium' ? 'bg-purple-50 text-purple-700' :
-                    'bg-blue-50 text-blue-700'
-                  }`}>
-                    {tool.status}
-                  </span>
-                </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">{tool.name}</h3>
-                <p className="text-gray-600 text-sm mb-4 line-clamp-2">{tool.description}</p>
-                <div className="flex items-center justify-between pt-4 border-t border-gray-50">
-                  <span className="text-xs text-gray-500 font-medium bg-gray-100 px-2 py-1 rounded">{tool.category}</span>
-                  <span className="text-xs text-gray-400">{tool.users} users</span>
-                </div>
-                <button className="w-full mt-4 py-2 px-4 bg-primary text-white text-sm font-medium rounded-lg opacity-0 group-hover:opacity-100 transition-opacity translate-y-2 group-hover:translate-y-0 duration-300">
-                  Try Now
-                </button>
-              </div>
+          {/* Internal Navigation */}
+          <div className="flex p-1.5 space-x-1 bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl">
+            {['tools', 'prompts', 'premium'].map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`px-6 py-2.5 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all flex items-center gap-2 ${
+                  activeTab === tab
+                    ? 'bg-linear-to-r from-[#6C63FF] to-[#00F5FF] text-white shadow-lg'
+                    : 'text-gray-500 hover:text-white hover:bg-white/5'
+                }`}
+              >
+                {tab === 'premium' && <Crown className="w-3.5 h-3.5" />}
+                {tab === 'tools' ? 'AI Tools' : tab === 'prompts' ? 'AI Prompts' : 'Premium Access'}
+              </button>
             ))}
           </div>
-        )}
+        </div>
 
-        {activeTab === 'prompts' && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {prompts.map((item) => (
-              <div key={item.id} className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:border-primary/30 transition-colors">
-                <div className="flex items-center justify-between mb-3">
-                  <h3 className="font-semibold text-gray-900">{item.title}</h3>
-                  <span className="px-2 py-1 bg-gray-50 text-gray-500 text-xs rounded-md">{item.category}</span>
-                </div>
-                <div className="bg-gray-50 p-4 rounded-lg font-mono text-sm text-gray-700 mb-3 border border-gray-100">
-                  {item.prompt}
-                </div>
-                <button className="text-primary text-sm font-medium hover:underline flex items-center gap-1">
-                  <Zap className="w-3 h-3" /> Use Prompt
-                </button>
-              </div>
-            ))}
-          </div>
-        )}
+        {/* Content Section */}
+        <div className="relative">
+          <AnimatePresence mode="wait">
+            {activeTab === 'tools' && (
+              <motion.div 
+                key="tools"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+              >
+                {tools.map((tool, i) => (
+                  <motion.div 
+                    key={tool.id}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: i * 0.1 }}
+                    className="glass-card p-8 rounded-[2.5rem] border-white/5 group hover:border-[#6C63FF]/30 transition-all flex flex-col"
+                  >
+                    <div className="flex items-start justify-between mb-8">
+                      <div className="p-4 rounded-2xl bg-white/5 transition-transform group-hover:scale-110 duration-500" style={{ color: tool.color }}>
+                        {tool.icon}
+                      </div>
+                      <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border ${
+                        tool.status === 'Free' ? 'bg-green-500/10 text-green-400 border-green-500/20' :
+                        tool.status === 'Premium' ? 'bg-[#bf5af2]/10 text-[#bf5af2] border-[#bf5af2]/20' :
+                        'bg-[#00F5FF]/10 text-[#00F5FF] border-[#00F5FF]/20'
+                      }`}>
+                        {tool.status}
+                      </span>
+                    </div>
+                    <h3 className="text-xl font-black text-gray-900 dark:text-white mb-3 tracking-tight group-hover:text-gradient transition-all">{tool.name}</h3>
+                    <p className="text-gray-500 dark:text-gray-400 text-sm font-bold leading-relaxed mb-8 flex-1">{tool.description}</p>
+                    
+                    <div className="flex items-center justify-between pt-6 border-t border-white/5">
+                      <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest bg-white/5 px-3 py-1 rounded-lg">{tool.category}</span>
+                      <span className="text-[10px] font-black text-gray-500 uppercase tracking-widest">{tool.users} users</span>
+                    </div>
+                    
+                    <button className="w-full mt-6 py-4 bg-linear-to-r from-[#6C63FF] to-[#00F5FF] text-white text-xs font-black rounded-2xl uppercase tracking-widest opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300 shadow-lg shadow-[#6C63FF]/20 active:scale-95 flex items-center justify-center gap-2">
+                      Try Now <ArrowRight className="w-4 h-4" />
+                    </button>
+                  </motion.div>
+                ))}
+              </motion.div>
+            )}
 
-        {activeTab === 'premium' && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {premiumTools.map((item) => (
-              <div key={item.id} className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl p-6 text-white shadow-xl relative overflow-hidden group">
-                <div className="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
-                  <Crown className="w-24 h-24" />
-                </div>
-                <h3 className="text-lg font-bold mb-1">{item.name}</h3>
-                <p className="text-gray-400 text-sm mb-4">{item.description}</p>
-                
-                <div className="flex items-end gap-2 mb-4">
-                  <span className="text-3xl font-bold text-amber-400">{item.ourPrice}</span>
-                  <span className="text-sm text-gray-500 line-through mb-1">{item.originalPrice}</span>
-                </div>
-                
-                <div className="inline-block px-3 py-1 bg-amber-500/20 text-amber-400 text-xs font-bold rounded-full mb-6">
-                  Save {item.savings}
-                </div>
-                
-                <button className="w-full py-2 bg-amber-500 hover:bg-amber-600 text-gray-900 font-bold rounded-lg transition-colors">
-                  Get Access
-                </button>
-              </div>
-            ))}
-          </div>
-        )}
+            {activeTab === 'prompts' && (
+              <motion.div 
+                key="prompts"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                className="space-y-6"
+              >
+                {prompts.map((prompt, i) => (
+                  <motion.div 
+                    key={prompt.id}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.1 }}
+                    className="glass-card p-6 md:p-8 rounded-3xl border-white/5 hover:border-[#00F5FF]/30 transition-all group"
+                  >
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                      <div className="space-y-2">
+                        <div className="flex items-center gap-3">
+                          <span className="text-[10px] font-black text-[#00F5FF] uppercase tracking-widest bg-[#00F5FF]/10 px-2 py-1 rounded-md">{prompt.category}</span>
+                          <h3 className="text-lg font-black text-gray-900 dark:text-white tracking-tight">{prompt.title}</h3>
+                        </div>
+                        <p className="text-gray-400 font-mono text-sm bg-black/20 p-4 rounded-xl border border-white/5 leading-relaxed group-hover:border-[#00F5FF]/20 transition-all">
+                          {prompt.prompt}
+                        </p>
+                      </div>
+                      <button className="flex items-center justify-center gap-2 px-6 py-4 bg-white/5 border border-white/10 text-white text-xs font-black rounded-2xl uppercase tracking-widest hover:bg-[#00F5FF] hover:text-black transition-all active:scale-95 shrink-0">
+                        Copy Prompt
+                      </button>
+                    </div>
+                  </motion.div>
+                ))}
+              </motion.div>
+            )}
+
+            {activeTab === 'premium' && (
+              <motion.div 
+                key="premium"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+              >
+                {premiumTools.map((tool, i) => (
+                  <motion.div 
+                    key={tool.id}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: i * 0.1 }}
+                    className="glass-card p-8 rounded-[2.5rem] border-white/5 relative overflow-hidden group hover:border-[#FFD700]/30 transition-all flex flex-col"
+                  >
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#FFD700]/20 to-transparent blur-3xl -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700" />
+                    
+                    <div className="relative z-10 space-y-6 flex-1 flex flex-col">
+                      <div className="flex justify-between items-start">
+                        <h3 className="text-xl font-black text-gray-900 dark:text-white tracking-tight">{tool.name}</h3>
+                        <div className="bg-[#FFD700] text-black text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest shadow-lg shadow-[#FFD700]/20">
+                          Save {tool.savings}
+                        </div>
+                      </div>
+                      <p className="text-gray-500 dark:text-gray-400 font-bold leading-relaxed text-sm flex-1">{tool.description}</p>
+                      
+                      <div className="flex items-baseline gap-4 pt-4 border-t border-white/5">
+                        <span className="text-3xl font-black text-[#FFD700]">{tool.ourPrice}</span>
+                        <span className="text-lg text-gray-600 line-through font-bold">{tool.originalPrice}</span>
+                      </div>
+                      
+                      <button className="w-full py-5 bg-white/5 border border-white/10 text-white font-black rounded-2xl uppercase tracking-widest hover:bg-[#FFD700] hover:text-black transition-all active:scale-95 flex items-center justify-center gap-2">
+                        Get Access <ExternalLink className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </motion.div>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
     </div>
   );
