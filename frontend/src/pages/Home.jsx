@@ -13,7 +13,10 @@ import {
 import { useUser } from '../context/UserContext';
 import Dashboard from './Dashboard';
 import ProductivityDashboard from '../components/ProductivityDashboard';
-import catImage from '../assets/cat.jpeg';
+const HERO_BANNER =
+  'https://media.licdn.com/dms/image/v2/D4D16AQFIM55TKI7AIQ/profile-displaybackgroundimage-shrink_350_1400/B4DZrxdcjuG4Ac-/0/1764987621122?e=1773878400&v=beta&t=SmNyhyDztH3PYgwmwWNc20-MOKJ2W-nIcGIqkUm0O2A';
+const HERO_LOGO =
+  'https://media.licdn.com/dms/image/v2/D4D03AQHhQx3-pxI0hQ/profile-displayphoto-scale_400_400/B4DZrxdH2tIMAg-/0/1764987536073?e=1773878400&v=beta&t=_gGw8Y9-4XJt4YilX7rCmhsp5cP3EvLRQDA0TGkRSlQ';
 
 const Home = () => {
   const { user } = useUser();
@@ -152,12 +155,27 @@ const Home = () => {
   return (
     <div className="space-y-20 pb-12">
       {/* Hero Section */}
-      <div className="bg-purple-50 dark:bg-gray-900 rounded-2xl p-8 md:p-16 flex flex-col lg:flex-row items-center justify-between gap-12 relative overflow-hidden border border-purple-100 dark:border-gray-800">
+      <div
+        className="bg-purple-50 dark:bg-gray-900 rounded-2xl p-8 md:p-16 flex flex-col lg:flex-row items-center justify-between gap-12 relative overflow-hidden border border-purple-100 dark:border-gray-800"
+        style={{
+          backgroundImage: `url('${HERO_BANNER}')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+        }}
+      >
+        <div className="absolute inset-0 bg-white/70 dark:bg-black/50 pointer-events-none" />
         <div className="flex-1 space-y-6 z-10">
-          <img 
-            src={catImage} 
-            alt="Cat" 
-            className="w-full h-auto rounded-lg mb-6 shadow-lg border-4 border-white dark:border-gray-800"
+          <img
+            src={HERO_LOGO}
+            alt="Logo"
+            className="w-20 h-20 sm:w-24 sm:h-24 rounded-full mb-4 shadow-lg border-4 border-white dark:border-gray-800 object-cover"
+            loading="eager"
+            decoding="async"
+            referrerPolicy="no-referrer"
+            onError={(e) => {
+              e.currentTarget.style.display = 'none';
+            }}
           />
           <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-gray-900 dark:text-white leading-tight">
             Study Smarter.<br />

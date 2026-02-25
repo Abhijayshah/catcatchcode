@@ -30,7 +30,17 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
-            <img src="/assets/logo.svg" alt="CatCatchCode Logo" className="w-8 h-8 rounded-lg" />
+            <img
+              src="https://media.licdn.com/dms/image/v2/D4D03AQHhQx3-pxI0hQ/profile-displayphoto-scale_400_400/B4DZrxdH2tIMAg-/0/1764987536073?e=1773878400&v=beta&t=_gGw8Y9-4XJt4YilX7rCmhsp5cP3EvLRQDA0TGkRSlQ"
+              alt="CatCatchCode Logo"
+              className="w-8 h-8 rounded-lg object-cover"
+              loading="eager"
+              decoding="async"
+              onError={(e) => {
+                e.currentTarget.src = '/assets/logo.svg';
+              }}
+              referrerPolicy="no-referrer"
+            />
             <span className="text-xl font-bold text-gray-900 dark:text-white">CatCatchCode</span>
           </Link>
 
