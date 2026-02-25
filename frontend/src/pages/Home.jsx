@@ -168,22 +168,22 @@ const Home = () => {
         <div className="px-6 sm:px-10 pb-10 relative">
           <div className="flex flex-col sm:flex-row sm:items-end gap-6 -mt-12 sm:-mt-20 md:-mt-28 relative z-20">
             {/* Profile Logo */}
-            <div className="relative">
+            <div className="relative flex flex-col items-start">
               <img
                 src={HERO_LOGO}
                 alt="CatCatchCode Profile"
                 className="w-24 h-24 sm:w-40 sm:h-40 md:w-52 md:h-52 rounded-full ring-4 sm:ring-8 ring-white dark:ring-gray-900 object-cover shadow-2xl bg-white dark:bg-gray-800"
                 loading="eager"
               />
+              <h1 className="mt-4 text-2xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white leading-tight whitespace-nowrap">
+                Cat Catch Code
+              </h1>
             </div>
 
             {/* Title & Info */}
             <div className="flex-1 pb-2">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                  <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white leading-tight">
-                    Cat Catch Code
-                  </h1>
                   <p className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-400 mt-2 font-medium">
                     Notes • Videos • AI Tools • Projects • Hackathon Tips
                   </p>
