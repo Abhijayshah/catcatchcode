@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Plus, BarChart2, BookOpen, Clock, Target } from 'lucide-react';
+import { Plus, BarChart2, BookOpen, Clock, Target, Sparkles, Filter, Trash2, Edit3, CheckCircle2, Circle } from 'lucide-react';
 import api from '../services/api';
 import ResourceCard from '../components/ResourceCard';
 import AddResourceForm from '../components/AddResourceForm';
@@ -54,88 +54,131 @@ const MyStudySpace = () => {
   if (loading) return <Loader />;
 
   return (
-    <div className="space-y-8">
-      {/* Header & Stats */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 space-y-6">
-          <div className="bg-gradient-to-r from-primary to-blue-600 rounded-2xl p-8 text-white shadow-lg">
-            <h1 className="text-3xl font-bold mb-2">My Study Space</h1>
-            <p className="opacity-90 mb-6">Track your progress and manage your personal learning resources.</p>
-            
-            <div className="grid grid-cols-3 gap-4">
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
-                <div className="flex items-center gap-2 mb-1">
-                  <BookOpen className="w-4 h-4 text-blue-200" />
-                  <span className="text-sm font-medium text-blue-100">Total Items</span>
-                </div>
-                <span className="text-2xl font-bold">{totalCount}</span>
-              </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
-                <div className="flex items-center gap-2 mb-1">
-                  <Target className="w-4 h-4 text-green-200" />
-                  <span className="text-sm font-medium text-green-100">Completed</span>
-                </div>
-                <span className="text-2xl font-bold">{completedCount}</span>
-              </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
-                <div className="flex items-center gap-2 mb-1">
-                  <BarChart2 className="w-4 h-4 text-purple-200" />
-                  <span className="text-sm font-medium text-purple-100">Progress</span>
-                </div>
-                <span className="text-2xl font-bold">{progressPercentage}%</span>
-              </div>
-            </div>
-          </div>
+    <div className="relative min-h-screen pb-20">
+      {/* Background Blobs */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <div className="absolute top-[10%] left-[-5%] w-[500px] h-[500px] bg-[#00F5FF]/5 rounded-full blur-[120px] animate-pulse-slow" />
+        <div className="absolute bottom-[10%] right-[-5%] w-[500px] h-[500px] bg-[#6C63FF]/5 rounded-full blur-[120px] animate-pulse-slow" />
+      </div>
 
-          {/* Filters & Add Button */}
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-            <div className="flex gap-2 overflow-x-auto pb-2 w-full sm:w-auto no-scrollbar">
+      <div className="relative z-10 space-y-10">
+        {/* Header Section */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="space-y-1"
+          >
+            <h1 className="text-4xl md:text-5xl font-black text-gray-900 dark:text-white tracking-tight">
+              Study <span className="text-gradient">Space</span>
+            </h1>
+            <p className="text-gray-500 dark:text-gray-400 font-bold uppercase tracking-[0.2em] text-[10px]">
+              Optimize your learning flow
+            </p>
+          </motion.div>
+
+          <button 
+            onClick={() => setShowAddModal(true)}
+            className="flex items-center justify-center gap-2 px-6 py-4 bg-linear-to-r from-[#6C63FF] to-[#00F5FF] text-white font-black rounded-2xl hover:shadow-[0_0_20px_rgba(108,99,255,0.4)] transition-all active:scale-95 group"
+          >
+            <Plus className="w-5 h-5 group-hover:rotate-90 transition-transform" />
+            Add Resource
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+          {/* Main Content Area */}
+          <div className="lg:col-span-8 space-y-8">
+            {/* Stats Overview */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="glass-card p-8 md:p-10 rounded-[2.5rem] relative overflow-hidden group"
+            >
+              <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-[#00F5FF]/10 to-[#6C63FF]/10 blur-[80px] -mr-32 -mt-32 group-hover:scale-110 transition-transform duration-700" />
+              
+              <div className="relative z-10">
+                <div className="flex items-center gap-3 mb-8">
+                  <div className="p-2 rounded-xl bg-[#00F5FF]/10 text-[#00F5FF]">
+                    <Sparkles className="w-5 h-5" />
+                  </div>
+                  <h2 className="text-xl font-black text-gray-900 dark:text-white tracking-tight">Learning Progress</h2>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-[10px] font-black text-gray-500 uppercase tracking-widest">
+                      <BookOpen className="w-3.5 h-3.5 text-[#6C63FF]" />
+                      Total Items
+                    </div>
+                    <div className="text-3xl font-black text-gray-900 dark:text-white">{totalCount}</div>
+                    <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+                      <div className="h-full bg-[#6C63FF] w-full" />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-[10px] font-black text-gray-500 uppercase tracking-widest">
+                      <Target className="w-3.5 h-3.5 text-[#00F5FF]" />
+                      Completed
+                    </div>
+                    <div className="text-3xl font-black text-gray-900 dark:text-white">{completedCount}</div>
+                    <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+                      <motion.div 
+                        initial={{ width: 0 }}
+                        animate={{ width: `${progressPercentage}%` }}
+                        className="h-full bg-[#00F5FF]" 
+                      />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-[10px] font-black text-gray-500 uppercase tracking-widest">
+                      <BarChart2 className="w-3.5 h-3.5 text-[#bf5af2]" />
+                      Success Rate
+                    </div>
+                    <div className="text-3xl font-black text-gray-900 dark:text-white">{progressPercentage}%</div>
+                    <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+                      <motion.div 
+                        initial={{ width: 0 }}
+                        animate={{ width: `${progressPercentage}%` }}
+                        className="h-full bg-[#bf5af2]" 
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Filter Section */}
+            <div className="flex items-center gap-4 overflow-x-auto pb-4 no-scrollbar">
+              <div className="flex items-center gap-2 px-4 py-3 bg-white/5 border border-white/10 rounded-2xl text-gray-400">
+                <Filter className="w-4 h-4" />
+                <span className="text-[10px] font-black uppercase tracking-widest whitespace-nowrap">Filter By:</span>
+              </div>
               {sections.map((section) => (
                 <button
                   key={section}
                   onClick={() => setFilter(section)}
-                  className={`px-4 py-2 text-sm font-medium rounded-full whitespace-nowrap transition-colors ${
+                  className={`px-6 py-3 text-xs font-black rounded-2xl whitespace-nowrap transition-all uppercase tracking-widest ${
                     filter === section
-                      ? 'bg-primary text-white shadow-md'
-                      : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'
+                      ? 'bg-linear-to-r from-[#6C63FF] to-[#00F5FF] text-white shadow-[0_0_15px_rgba(108,99,255,0.3)]'
+                      : 'bg-white/5 text-gray-500 dark:text-gray-400 border border-white/5 hover:border-white/20'
                   }`}
                 >
                   {section}
                 </button>
               ))}
             </div>
-            
-            <button
-              onClick={() => setShowAddModal(true)}
-              className="flex items-center gap-2 px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors shadow-sm whitespace-nowrap"
-            >
-              <Plus className="w-4 h-4" /> Add Resource
-            </button>
-          </div>
 
-          {/* Resources Grid */}
-          {filteredResources.length === 0 ? (
-            <div className="bg-gray-50 border-2 border-dashed border-gray-200 rounded-xl p-12 text-center">
-              <BookOpen className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-1">No resources found</h3>
-              <p className="text-gray-500 text-sm mb-6">Start building your library by adding links to your study materials.</p>
-              <button
-                onClick={() => setShowAddModal(true)}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
-              >
-                <Plus className="w-4 h-4" /> Add First Resource
-              </button>
-            </div>
-          ) : (
+            {/* Resources Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <AnimatePresence>
+              <AnimatePresence mode='popLayout'>
                 {filteredResources.map((resource) => (
                   <motion.div
                     key={resource._id}
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.95 }}
                     layout
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
                   >
                     <ResourceCard 
                       resource={resource} 
@@ -146,51 +189,94 @@ const MyStudySpace = () => {
                 ))}
               </AnimatePresence>
             </div>
-          )}
-        </div>
 
-        {/* Sidebar Widgets */}
-        <div className="space-y-6">
-          <PomodoroTimer />
-          
-          <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-            <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
-              <Clock className="w-5 h-5 text-primary" />
-              Study Streak
-            </h3>
-            <div className="flex items-center justify-between">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-gray-900">3</div>
-                <div className="text-xs text-gray-500 uppercase tracking-wide mt-1">Current</div>
+            {filteredResources.length === 0 && (
+              <div className="glass-card p-20 rounded-[2.5rem] text-center space-y-6">
+                <div className="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center mx-auto">
+                  <BookOpen className="w-10 h-10 text-gray-600" />
+                </div>
+                <div className="space-y-2">
+                  <p className="text-gray-500 font-black uppercase tracking-widest text-xs">No resources in this category</p>
+                  <p className="text-gray-600 dark:text-gray-500 text-sm max-w-xs mx-auto">Add your first learning resource to this section to get started.</p>
+                </div>
               </div>
-              <div className="h-10 w-px bg-gray-200"></div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-gray-900">12</div>
-                <div className="text-xs text-gray-500 uppercase tracking-wide mt-1">Best</div>
+            )}
+          </div>
+
+          {/* Sidebar Area */}
+          <div className="lg:col-span-4 space-y-8">
+            {/* Timer Section */}
+            <div className="sticky top-28 space-y-8">
+              <motion.div 
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                className="glass-card p-8 rounded-[2.5rem] border-[#6C63FF]/20"
+              >
+                <div className="flex items-center gap-3 mb-8">
+                  <div className="p-2 rounded-xl bg-[#6C63FF]/10 text-[#6C63FF]">
+                    <Clock className="w-5 h-5" />
+                  </div>
+                  <h2 className="text-xl font-black text-gray-900 dark:text-white tracking-tight">Focus Timer</h2>
+                </div>
+                <PomodoroTimer />
+              </motion.div>
+
+              {/* Quick Notes / Reminders */}
+              <div className="glass-card p-8 rounded-[2.5rem] border-white/5">
+                <h4 className="text-xs font-black text-gray-900 dark:text-white mb-6 uppercase tracking-[0.2em]">Learning Tips</h4>
+                <div className="space-y-4">
+                  {[
+                    "Use the Pomodoro technique (25/5 min)",
+                    "Review your notes every 24 hours",
+                    "Active recall is better than re-reading",
+                    "Teach what you learn to someone else"
+                  ].map((tip, i) => (
+                    <div key={i} className="flex gap-3 text-xs text-gray-500 dark:text-gray-400 font-bold leading-relaxed">
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#00F5FF] mt-1.5 shrink-0" />
+                      {tip}
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
-            <p className="text-sm text-gray-500 mt-4 text-center">
-              Keep learning daily to increase your streak! 🔥
-            </p>
           </div>
         </div>
       </div>
 
       {/* Add Resource Modal */}
-      {showAddModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-          >
-            <AddResourceForm 
-              onAdd={handleAddResource} 
-              onClose={() => setShowAddModal(false)} 
+      <AnimatePresence>
+        {showAddModal && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowAddModal(false)}
+              className="absolute inset-0 bg-[#0F0C29]/80 backdrop-blur-md"
             />
-          </motion.div>
-        </div>
-      )}
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              className="glass-card w-full max-w-2xl rounded-[2.5rem] p-8 md:p-10 relative z-10 border-white/10"
+            >
+              <div className="flex items-center justify-between mb-8">
+                <h2 className="text-2xl font-black text-gray-900 dark:text-white tracking-tight">Add New <span className="text-gradient">Resource</span></h2>
+                <button 
+                  onClick={() => setShowAddModal(false)}
+                  className="p-2 hover:bg-white/5 rounded-xl transition-colors text-gray-400"
+                >
+                  <Plus className="w-6 h-6 rotate-45" />
+                </button>
+              </div>
+              <AddResourceForm 
+                onAdd={handleAddResource} 
+                onClose={() => setShowAddModal(false)} 
+              />
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

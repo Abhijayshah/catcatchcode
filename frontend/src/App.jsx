@@ -7,6 +7,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import Layout from './components/Layout';
 import ProtectedRoute from './components/ProtectedRoute';
 import Loader from './components/Loader';
+import ScrollToTop from './components/ScrollToTop';
 
 // Lazy Load Pages
 const Home = lazy(() => import('./pages/Home'));
@@ -33,6 +34,7 @@ function App() {
         <UserProvider>
           <FocusProvider>
             <Layout>
+              <ScrollToTop />
             <Suspense fallback={<div className="h-screen flex items-center justify-center"><Loader /></div>}>
                 <Routes>
                     <Route path="/" element={<Home />} />
