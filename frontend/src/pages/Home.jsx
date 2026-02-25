@@ -312,11 +312,11 @@ const Home = () => {
             <div className="space-y-6">
               <h2 className="text-4xl md:text-6xl font-black tracking-tighter">
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-cyan-500 dark:from-purple-400 dark:to-cyan-300">
-                  Join 10k+ Learners
+                  Join Our Community
                 </span>
               </h2>
-              <p className="text-gray-600 dark:text-gray-200 max-w-2xl mx-auto text-xl font-bold leading-relaxed">
-                Connect with our growing community. Get instant updates on tutorials, AI tools, and hackathon strategies.
+              <p className="text-gray-600 dark:text-gray-100 max-w-2xl mx-auto text-xl font-extrabold leading-relaxed">
+                Connect with our growing 10k+ learners. Get instant updates on tutorials, AI tools, and hackathon strategies.
               </p>
             </div>
             

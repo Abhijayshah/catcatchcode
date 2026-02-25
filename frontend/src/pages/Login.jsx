@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
+import { motion } from 'framer-motion';
+import { Mail, Lock, ArrowRight } from 'lucide-react';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -10,55 +12,82 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Attempting login with:', { email });
     const success = await login(email, password);
     if (success) {
-      console.log('Login successful');
       navigate('/');
-    } else {
-      console.error('Login failed');
     }
   };
 
   return (
-    <div className="min-h-[80vh] flex items-center justify-center">
-      <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md dark:shadow-gray-900/50 w-full max-w-md border border-gray-100 dark:border-gray-700">
-        <h2 className="text-2xl font-bold mb-6 text-center text-gray-900 dark:text-white">Log In to Your Account</h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500"
-              required
-            />
+    <div className="min-h-[85vh] flex items-center justify-center relative overflow-hidden px-4">
+      {/* Background Blobs */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <div className="absolute top-[10%] left-[-5%] w-[400px] h-[400px] bg-[#00F5FF]/5 rounded-full blur-[100px] animate-pulse-slow" />
+        <div className="absolute bottom-[10%] right-[-5%] w-[400px] h-[400px] bg-[#6C63FF]/5 rounded-full blur-[100px] animate-pulse-slow" />
+      </div>
+
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="glass-card p-8 sm:p-10 rounded-[2.5rem] w-full max-w-md relative z-10"
+      >
+        <div className="text-center mb-10 space-y-2">
+          <h2 className="text-3xl sm:text-4xl font-black text-gray-900 dark:text-white tracking-tight">
+            Welcome <span className="dark:text-gradient">Back</span>
+          </h2>
+          <p className="text-gray-500 dark:text-gray-400 font-bold uppercase tracking-widest text-[10px]">
+            Access your learning dashboard
+          </p>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="space-y-2">
+            <label className="block text-xs font-black text-gray-700 dark:text-gray-300 uppercase tracking-wider ml-1">Email Address</label>
+            <div className="relative group">
+              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-purple-500 transition-colors" />
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full pl-12 pr-4 py-4 bg-white/50 dark:bg-black/20 border border-gray-200 dark:border-white/10 rounded-2xl focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all dark:text-white placeholder-gray-400 font-medium"
+                placeholder="your@email.com"
+                required
+              />
+            </div>
           </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Password</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500"
-              required
-            />
+
+          <div className="space-y-2">
+            <label className="block text-xs font-black text-gray-700 dark:text-gray-300 uppercase tracking-wider ml-1">Password</label>
+            <div className="relative group">
+              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-purple-500 transition-colors" />
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full pl-12 pr-4 py-4 bg-white/50 dark:bg-black/20 border border-gray-200 dark:border-white/10 rounded-2xl focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all dark:text-white placeholder-gray-400 font-medium"
+                placeholder="••••••••"
+                required
+              />
+            </div>
           </div>
+
           <button
             type="submit"
-            className="w-full bg-primary text-white py-3 rounded-md font-bold hover:bg-purple-700 transition-colors"
+            className="w-full bg-gradient-to-r from-purple-600 to-cyan-500 text-white py-4 rounded-2xl font-black hover:opacity-90 transition-all shadow-xl shadow-purple-600/20 active:scale-95 flex items-center justify-center gap-2 group"
           >
-            Log In
+            Log In <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </button>
         </form>
-        <p className="mt-4 text-center text-sm text-gray-600 dark:text-gray-400">
-          Don't have an account?{' '}
-          <Link to="/register" className="text-primary font-bold hover:underline">
-            Sign up
-          </Link>
-        </p>
-      </div>
+
+        <div className="mt-10 text-center space-y-4">
+          <p className="text-sm text-gray-600 dark:text-gray-400 font-bold">
+            New to CatCatchCode?{' '}
+            <Link to="/register" className="text-purple-600 dark:text-cyan-400 hover:underline">
+              Create an account
+            </Link>
+          </p>
+        </div>
+      </motion.div>
     </div>
   );
 };
