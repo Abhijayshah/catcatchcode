@@ -4,19 +4,16 @@ import api from '../services/api';
 import CourseCard from '../components/CourseCard';
 import Loader from '../components/Loader';
 import { motion } from 'framer-motion';
-import { 
-  Github, Twitter, Facebook, Linkedin, Instagram, Youtube, 
-  BookOpen, ArrowRight, Video, FileText, Bot, FlaskConical, 
-  FileQuestion, Briefcase, LayoutDashboard, CheckCircle, 
-  PlayCircle, Cloud, TrendingUp, Zap 
+import {
+  Github, Twitter, Facebook, Linkedin, Instagram, Youtube,
+  BookOpen, Video, FileText, Bot, FlaskConical,
+  FileQuestion, Briefcase, LayoutDashboard, ArrowRight
 } from 'lucide-react';
 import { useUser } from '../context/UserContext';
 import Dashboard from './Dashboard';
 import ProductivityDashboard from '../components/ProductivityDashboard';
-const HERO_BANNER =
-  'https://media.licdn.com/dms/image/v2/D4D16AQFIM55TKI7AIQ/profile-displaybackgroundimage-shrink_350_1400/B4DZrxdcjuG4Ac-/0/1764987621122?e=1773878400&v=beta&t=SmNyhyDztH3PYgwmwWNc20-MOKJ2W-nIcGIqkUm0O2A';
-const HERO_LOGO =
-  'https://media.licdn.com/dms/image/v2/D4D03AQHhQx3-pxI0hQ/profile-displayphoto-scale_400_400/B4DZrxdH2tIMAg-/0/1764987536073?e=1773878400&v=beta&t=_gGw8Y9-4XJt4YilX7rCmhsp5cP3EvLRQDA0TGkRSlQ';
+const HERO_BANNER = 'https://media.licdn.com/dms/image/v2/D4D16AQFIM55TKI7AIQ/profile-displaybackgroundimage-shrink_350_1400/B4DZrxdcjuG4Ac-/0/1764987621122?e=1773878400&v=beta&t=SmNyhyDztH3PYgwmwWNc20-MOKJ2W-nIcGIqkUm0O2A';
+const HERO_LOGO = 'https://media.licdn.com/dms/image/v2/D4D03AQHhQx3-pxI0hQ/profile-displayphoto-scale_400_400/B4DZrxdH2tIMAg-/0/1764987536073?e=1773878400&v=beta&t=_gGw8Y9-4XJt4YilX7rCmhsp5cP3EvLRQDA0TGkRSlQ';
 
 const Home = () => {
   const { user } = useUser();
@@ -156,107 +153,84 @@ const Home = () => {
     <div className="space-y-20 pb-12">
       {/* Hero Section */}
       <div
-        className="bg-purple-50 dark:bg-gray-900 rounded-2xl p-8 md:p-16 flex flex-col lg:flex-row items-center justify-between gap-12 relative overflow-hidden border border-purple-100 dark:border-gray-800"
+        className="bg-purple-50 dark:bg-gray-900 rounded-2xl p-0 md:p-0 relative overflow-hidden border border-purple-100 dark:border-gray-800"
         style={{
           backgroundImage: `url('${HERO_BANNER}')`,
           backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          backgroundPosition: 'center center',
           backgroundRepeat: 'no-repeat',
         }}
       >
-        <div className="absolute inset-0 bg-white/70 dark:bg-black/50 pointer-events-none" />
-        <div className="flex-1 space-y-6 z-10">
-          <img
-            src={HERO_LOGO}
-            alt="Logo"
-            className="w-20 h-20 sm:w-24 sm:h-24 rounded-full mb-4 shadow-lg border-4 border-white dark:border-gray-800 object-cover"
-            loading="eager"
-            decoding="async"
-            referrerPolicy="no-referrer"
-            onError={(e) => {
-              e.currentTarget.style.display = 'none';
-            }}
-          />
-          <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-gray-900 dark:text-white leading-tight">
-            Study Smarter.<br />
-            <span className="text-purple-600">Stay Focused.</span>
-          </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-xl">
-            ✨ Build your personal study environment by uploading YouTube videos or any vedios and note  via URLs or link, and track your progress — all in one powerful, distraction-free dashboard.
-          </p>
-          <div className="flex flex-wrap gap-4 pt-4">
-            <Link 
-              to="/register" 
-              className="px-8 py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transition-colors shadow-lg shadow-purple-200 dark:shadow-none"
-            >
-              Start Learning Free →
-            </Link>
-            <a 
-              href="#courses" 
-              className="px-8 py-3 bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 rounded-lg font-semibold hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
-            >
-              Explore Courses
-            </a>
-          </div>
-          <div className="flex flex-wrap gap-6 pt-6 text-sm font-medium text-gray-500 dark:text-gray-400">
-            <div className="flex items-center gap-2">
-              <PlayCircle className="w-5 h-5 text-purple-600" />
-              Ad-free Video
-            </div>
-            <div className="flex items-center gap-2">
-              <Cloud className="w-5 h-5 text-purple-600" />
-              Cloud Notes
-            </div>
-            <div className="flex items-center gap-2">
-              <TrendingUp className="w-5 h-5 text-purple-600" />
-              Progress
-            </div>
-          </div>
-        </div>
-        
-        {/* Hero Image / Mockup */}
-        <div className="flex-1 w-full max-w-lg relative z-10">
-          <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-xl dark:shadow-gray-900/50 border border-gray-100 dark:border-gray-700 transform rotate-1 hover:rotate-0 transition-transform duration-500">
-            <div className="flex items-center justify-between mb-6">
-              <div>
-                <p className="text-xs text-gray-400 uppercase tracking-wider font-semibold">Daily Goal</p>
-                <div className="flex items-center gap-2">
-                  <span className="text-2xl font-bold text-gray-900 dark:text-white">85%</span>
-                  <span className="text-sm text-green-500 font-medium">+12%</span>
-                </div>
-              </div>
-              <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
-                <Zap className="w-5 h-5 text-purple-600 dark:text-purple-400" />
-              </div>
-            </div>
-            <div className="space-y-4">
-              <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-xs">DS</div>
-                  <span className="font-medium text-gray-700 dark:text-gray-200">Data Structures</span>
-                </div>
-                <CheckCircle className="w-5 h-5 text-green-500" />
-              </div>
-              <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400 flex items-center justify-center font-bold text-xs">JS</div>
-                  <span className="font-medium text-gray-700 dark:text-gray-200">JavaScript</span>
-                </div>
-                <div className="w-5 h-5 rounded-full border-2 border-gray-300 dark:border-gray-500"></div>
-              </div>
-              <div className="pt-2">
-                <div className="flex items-center justify-end">
-                   <span className="inline-flex items-center gap-1 px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs font-medium rounded-full">
-                     <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-                     10k+ Learners
-                   </span>
-                </div>
+        <div className="absolute inset-0 bg-white/20 dark:bg-black/30" />
+        <div className="relative z-10 min-h-[280px] sm:min-h-[360px]" />
+        <div className="relative z-20 -mt-12 sm:-mt-16 px-6 sm:px-10 pb-8">
+          <div className="flex items-end gap-4 sm:gap-6">
+            <img
+              src={HERO_LOGO}
+              alt="Profile"
+              className="w-24 h-24 sm:w-36 sm:h-36 rounded-full ring-4 ring-white dark:ring-gray-900 object-cover shadow-lg"
+              loading="eager"
+              decoding="async"
+              referrerPolicy="no-referrer"
+              onError={(e) => {
+                e.currentTarget.style.display = 'none';
+              }}
+            />
+            <div className="pb-2 text-white">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-tight drop-shadow">
+                Cat Catch Code
+              </h1>
+              <p className="text-sm sm:text-base text-white/90 mt-1 drop-shadow">
+                Notes • Videos • AI Tools • Courses • Admin Panel • User Dashboard
+              </p>
+              <div className="flex flex-wrap gap-2 mt-2 text-xs sm:text-sm">
+                <a
+                  href="https://www.linkedin.com/in/catcatchcode/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700"
+                >
+                  <Linkedin className="w-4 h-4" />
+                  Connect
+                </a>
+                <a
+                  href="https://www.youtube.com/channel/UCgzmNjDq8kI3StWFrIv7QZg"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700"
+                >
+                  <Youtube className="w-4 h-4" />
+                  Subscribe
+                </a>
+                <a
+                  href="https://www.instagram.com/cat_catch_code/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700"
+                >
+                  <Instagram className="w-4 h-4" />
+                  Follow
+                </a>
+                <a
+                  href="https://github.com/catcatchcode"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700"
+                  title="GitHub"
+                >
+                  <Github className="w-4 h-4" />
+                  GitHub
+                </a>
+                <a
+                  href="#contact"
+                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-600 text-white border border-blue-600 hover:bg-blue-700"
+                >
+                  Contact Us
+                </a>
               </div>
             </div>
           </div>
-          {/* Decorative background elements */}
-          <div className="absolute -top-10 -right-10 w-64 h-64 bg-purple-200 dark:bg-purple-900/20 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl opacity-30 animate-blob"></div>
-          <div className="absolute -bottom-10 -left-10 w-64 h-64 bg-pink-200 dark:bg-pink-900/20 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
+          
         </div>
       </div>
 
