@@ -150,16 +150,25 @@ const Home = () => {
   }
 
   return (
-    <div className="space-y-20 pb-12 relative overflow-hidden">
+    <div className="space-y-20 pb-12 relative overflow-hidden bg-[#0F0C29]">
+      {/* Background Futuristic GIF Overlay */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none z-0">
+        <img 
+          src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJueXp6eXp6eXp6eXp6eXp6eXp6eXp6eXp6eXp6eXp6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/L1R1TVr9W5267L3LY5/giphy.gif" 
+          alt="Background Animation" 
+          className="w-full h-full object-cover"
+        />
+      </div>
+
       {/* Background Blobs */}
-      <div className="hidden dark:block">
-        <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-[#00F5FF]/20 rounded-full blur-[120px] animate-pulse-slow" />
-        <div className="absolute top-[20%] right-[-10%] w-[400px] h-[400px] bg-[#6C63FF]/20 rounded-full blur-[120px] animate-pulse-slow animation-delay-2000" />
-        <div className="absolute bottom-[-10%] left-[20%] w-[600px] h-[600px] bg-[#bf5af2]/10 rounded-full blur-[120px] animate-pulse-slow" />
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <div className="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] bg-[#00F5FF]/20 rounded-full blur-[120px] animate-pulse-slow" />
+        <div className="absolute top-[30%] right-[-10%] w-[500px] h-[500px] bg-[#6C63FF]/20 rounded-full blur-[120px] animate-pulse-slow animation-delay-2000" />
+        <div className="absolute bottom-[-10%] left-[10%] w-[700px] h-[700px] bg-[#bf5af2]/15 rounded-full blur-[120px] animate-pulse-slow" />
       </div>
 
       {/* Hero Section - LinkedIn Style */}
-      <div className="bg-white dark:bg-[#302b63]/30 dark:backdrop-blur-xl rounded-2xl overflow-hidden border border-gray-200 dark:border-white/10 shadow-sm relative z-10">
+      <div className="glass-card rounded-2xl overflow-hidden relative z-10 mx-4 sm:mx-0">
         {/* Banner */}
         <div className="h-40 sm:h-56 md:h-80 w-full overflow-hidden relative">
           <img 
@@ -233,11 +242,26 @@ const Home = () => {
             </div>
           </div>
           
-          {/* Description */}
-          <div className="mt-8 max-w-4xl">
-            <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-              ✨ Providing resources for students and developers. Master MERN Stack, Full Stack Development, iOS, and Flutter. Get project-related tips to win hackathons and build cutting-edge AI agents with n8n and custom automation.
-            </p>
+          {/* Description and Featured GIF */}
+          <div className="mt-8 flex flex-col lg:flex-row gap-8 items-start">
+            <div className="max-w-3xl flex-1">
+              <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+                ✨ Providing resources for students and developers. Master MERN Stack, Full Stack Development, iOS, and Flutter. Get project-related tips to win hackathons and build cutting-edge AI agents with n8n and custom automation.
+              </p>
+            </div>
+            
+            {/* Featured Futuristic GIF Card */}
+            <div className="w-full lg:w-72 glass-card rounded-xl overflow-hidden shadow-2xl group shrink-0">
+              <img 
+                src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJueXp6eXp6eXp6eXp6eXp6eXp6eXp6eXp6eXp6eXp6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/L1R1TVr9W5267L3LY5/giphy.gif"
+                alt="Futuristic Coding"
+                className="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500"
+              />
+              <div className="p-3 bg-[#302b63]/50 backdrop-blur-md">
+                <p className="text-xs font-bold text-white uppercase tracking-wider mb-1">Featured Tech</p>
+                <p className="text-[10px] text-cyan-400 font-medium">Next-Gen AI & Automation</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -257,12 +281,12 @@ const Home = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="bg-white dark:bg-[#302b63]/20 dark:backdrop-blur-lg p-6 rounded-2xl border border-gray-100 dark:border-white/10 hover:shadow-lg dark:hover:shadow-[0_0_20px_rgba(108,99,255,0.3)] transition-all duration-300 group"
+              className="glass-card p-6 rounded-2xl group"
             >
-              <div className={`w-12 h-12 ${feature.bg} dark:bg-opacity-20 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+              <div className={`w-12 h-12 ${feature.bg} dark:bg-opacity-20 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-lg shadow-purple-500/20`}>
                 {feature.icon}
               </div>
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{feature.title}</h3>
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 dark:text-gradient">{feature.title}</h3>
               <p className="text-gray-500 dark:text-gray-400 text-sm mb-4 leading-relaxed">{feature.description}</p>
               <Link to={feature.link} className="inline-flex items-center text-purple-600 dark:text-purple-400 font-medium text-sm hover:text-purple-700 dark:hover:text-purple-300">
                 Learn more <ArrowRight className="w-4 h-4 ml-1" />

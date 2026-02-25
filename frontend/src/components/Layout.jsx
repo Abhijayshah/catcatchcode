@@ -10,7 +10,7 @@ const Layout = ({ children }) => {
   const { isFocusMode, toggleFocusMode } = useFocus();
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 pb-16 md:pb-0 flex flex-col transition-colors duration-300">
+    <div className="min-h-screen bg-white dark:bg-[#0F0C29] pb-16 md:pb-0 flex flex-col transition-colors duration-300">
       {!isFocusMode && <Navbar />}
       {!isFocusMode && <SubNavbar />}
       
