@@ -150,9 +150,16 @@ const Home = () => {
   }
 
   return (
-    <div className="space-y-20 pb-12">
+    <div className="space-y-20 pb-12 relative overflow-hidden">
+      {/* Background Blobs */}
+      <div className="hidden dark:block">
+        <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-[#00F5FF]/20 rounded-full blur-[120px] animate-pulse-slow" />
+        <div className="absolute top-[20%] right-[-10%] w-[400px] h-[400px] bg-[#6C63FF]/20 rounded-full blur-[120px] animate-pulse-slow animation-delay-2000" />
+        <div className="absolute bottom-[-10%] left-[20%] w-[600px] h-[600px] bg-[#bf5af2]/10 rounded-full blur-[120px] animate-pulse-slow" />
+      </div>
+
       {/* Hero Section - LinkedIn Style */}
-      <div className="bg-white dark:bg-gray-900 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 shadow-sm relative">
+      <div className="bg-white dark:bg-[#302b63]/30 dark:backdrop-blur-xl rounded-2xl overflow-hidden border border-gray-200 dark:border-white/10 shadow-sm relative z-10">
         {/* Banner */}
         <div className="h-40 sm:h-56 md:h-80 w-full overflow-hidden relative">
           <img 
@@ -172,10 +179,10 @@ const Home = () => {
               <img
                 src={HERO_LOGO}
                 alt="CatCatchCode Profile"
-                className="w-24 h-24 sm:w-40 sm:h-40 md:w-52 md:h-52 rounded-full ring-4 sm:ring-8 ring-white dark:ring-gray-900 object-cover shadow-2xl bg-white dark:bg-gray-800"
+                className="w-24 h-24 sm:w-40 sm:h-40 md:w-52 md:h-52 rounded-full ring-4 sm:ring-8 ring-white dark:ring-[#0F0C29] object-cover shadow-2xl bg-white dark:bg-[#302b63]"
                 loading="eager"
               />
-              <h1 className="mt-4 text-2xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white leading-tight whitespace-nowrap">
+              <h1 className="mt-4 text-2xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white leading-tight whitespace-nowrap dark:text-gradient">
                 Cat Catch Code
               </h1>
             </div>
@@ -236,9 +243,9 @@ const Home = () => {
       </div>
 
       {/* Features Section */}
-      <div className="space-y-12">
+      <div className="space-y-12 relative z-10">
         <div className="text-center max-w-2xl mx-auto space-y-4">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Everything You Need to Succeed</h2>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white dark:text-gradient">Everything You Need to Succeed</h2>
           <p className="text-gray-600 dark:text-gray-400 text-lg">We provide a comprehensive ecosystem of resources designed to help students and developers learn effectively.</p>
         </div>
         
@@ -250,7 +257,7 @@ const Home = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="bg-white dark:bg-gray-800 p-6 rounded-2xl border border-gray-100 dark:border-gray-700 hover:shadow-lg dark:hover:shadow-gray-900/50 transition-all duration-300 group"
+              className="bg-white dark:bg-[#302b63]/20 dark:backdrop-blur-lg p-6 rounded-2xl border border-gray-100 dark:border-white/10 hover:shadow-lg dark:hover:shadow-[0_0_20px_rgba(108,99,255,0.3)] transition-all duration-300 group"
             >
               <div className={`w-12 h-12 ${feature.bg} dark:bg-opacity-20 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
                 {feature.icon}

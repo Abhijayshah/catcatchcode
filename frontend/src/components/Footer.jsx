@@ -15,12 +15,12 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 mt-12 transition-colors duration-300">
+    <footer className="bg-white dark:bg-[#0F0C29] border-t border-gray-200 dark:border-white/10 mt-12 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 sm:gap-10">
           {/* Brand & Description */}
           <div className="space-y-4 md:col-span-2 lg:col-span-3">
-            <h3 className="text-xl font-bold text-primary">CatCatchCode</h3>
+            <h3 className="text-xl font-bold text-primary dark:text-gradient">CatCatchCode</h3>
             <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed max-w-xs">
               Empowering developers with quality resources, tutorials, and a community-driven learning platform. Join us to master DSA, MERN, AI/ML and more.
             </p>
