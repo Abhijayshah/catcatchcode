@@ -151,86 +151,87 @@ const Home = () => {
 
   return (
     <div className="space-y-20 pb-12">
-      {/* Hero Section */}
-      <div
-        className="bg-purple-50 dark:bg-gray-900 rounded-2xl p-0 md:p-0 relative overflow-hidden border border-purple-100 dark:border-gray-800"
-        style={{
-          backgroundImage: `url('${HERO_BANNER}')`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center center',
-          backgroundRepeat: 'no-repeat',
-        }}
-      >
-        <div className="absolute inset-0 bg-white/20 dark:bg-black/30" />
-        <div className="relative z-10 min-h-[280px] sm:min-h-[360px]" />
-        <div className="relative z-20 -mt-12 sm:-mt-16 px-6 sm:px-10 pb-8">
-          <div className="flex items-end gap-4 sm:gap-6">
-            <img
-              src={HERO_LOGO}
-              alt="Profile"
-              className="w-24 h-24 sm:w-36 sm:h-36 rounded-full ring-4 ring-white dark:ring-gray-900 object-cover shadow-lg"
-              loading="eager"
-              decoding="async"
-              referrerPolicy="no-referrer"
-              onError={(e) => {
-                e.currentTarget.style.display = 'none';
-              }}
-            />
-            <div className="pb-2 text-white">
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-tight drop-shadow">
-                Cat Catch Code
-              </h1>
-              <p className="text-sm sm:text-base text-white/90 mt-1 drop-shadow">
-                Notes • Videos • AI Tools • Courses • Admin Panel • User Dashboard
-              </p>
-              <div className="flex flex-wrap gap-2 mt-2 text-xs sm:text-sm">
-                <a
-                  href="https://www.linkedin.com/in/catcatchcode/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700"
-                >
-                  <Linkedin className="w-4 h-4" />
-                  Connect
-                </a>
-                <a
-                  href="https://www.youtube.com/channel/UCgzmNjDq8kI3StWFrIv7QZg"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700"
-                >
+      {/* Hero Section - LinkedIn Style */}
+      <div className="bg-white dark:bg-gray-900 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 shadow-sm relative">
+        {/* Banner */}
+        <div className="h-40 sm:h-56 md:h-80 w-full overflow-hidden relative">
+          <img 
+            src={HERO_BANNER}
+            alt="CatCatchCode Banner"
+            className="w-full h-full object-cover object-center"
+            loading="eager"
+          />
+          <div className="absolute inset-0 bg-black/5 dark:bg-black/20" />
+        </div>
+        
+        {/* Profile Info Section */}
+        <div className="px-6 sm:px-10 pb-10 relative">
+          <div className="flex flex-col sm:flex-row sm:items-end gap-6 -mt-12 sm:-mt-20 md:-mt-28 relative z-20">
+            {/* Profile Logo */}
+            <div className="relative">
+              <img
+                src={HERO_LOGO}
+                alt="CatCatchCode Profile"
+                className="w-24 h-24 sm:w-40 sm:h-40 md:w-52 md:h-52 rounded-full ring-4 sm:ring-8 ring-white dark:ring-gray-900 object-cover shadow-2xl bg-white dark:bg-gray-800"
+                loading="eager"
+              />
+            </div>
+
+            {/* Title & Info */}
+            <div className="flex-1 pb-2">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white leading-tight">
+                    Cat Catch Code
+                  </h1>
+                  <p className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-400 mt-2 font-medium">
+                    Notes • Videos • AI Tools • Projects • Hackathon Tips
+                  </p>
+                </div>
+                
+                <div className="flex flex-wrap gap-3">
+                  <a
+                    href="https://www.linkedin.com/in/catcatchcode/"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-all shadow-md hover:shadow-lg"
+                  >
+                    <Linkedin className="w-4 h-4" />
+                    Connect
+                  </a>
+                  <a
+                    href="#contact"
+                    className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 font-semibold hover:bg-gray-50 dark:hover:bg-gray-700 transition-all shadow-sm"
+                  >
+                    Message
+                  </a>
+                </div>
+              </div>
+
+              {/* Badges/Links Row */}
+              <div className="flex flex-wrap gap-4 mt-6 text-sm font-medium text-gray-500 dark:text-gray-400">
+                <a href="https://www.youtube.com/channel/UCgzmNjDq8kI3StWFrIv7QZg" target="_blank" rel="noreferrer" className="flex items-center gap-1.5 hover:text-red-600 transition-colors">
                   <Youtube className="w-4 h-4" />
-                  Subscribe
+                  YouTube
                 </a>
-                <a
-                  href="https://www.instagram.com/cat_catch_code/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700"
-                >
+                <a href="https://www.instagram.com/cat_catch_code/" target="_blank" rel="noreferrer" className="flex items-center gap-1.5 hover:text-pink-600 transition-colors">
                   <Instagram className="w-4 h-4" />
-                  Follow
+                  Instagram
                 </a>
-                <a
-                  href="https://github.com/catcatchcode"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700"
-                  title="GitHub"
-                >
+                <a href="https://github.com/catcatchcode" target="_blank" rel="noreferrer" className="flex items-center gap-1.5 hover:text-gray-900 dark:hover:text-white transition-colors">
                   <Github className="w-4 h-4" />
                   GitHub
-                </a>
-                <a
-                  href="#contact"
-                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-600 text-white border border-blue-600 hover:bg-blue-700"
-                >
-                  Contact Us
                 </a>
               </div>
             </div>
           </div>
           
+          {/* Description */}
+          <div className="mt-8 max-w-4xl">
+            <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+              ✨ Providing resources for students and developers. Master MERN Stack, Full Stack Development, iOS, and Flutter. Get project-related tips to win hackathons and build cutting-edge AI agents with n8n and custom automation.
+            </p>
+          </div>
         </div>
       </div>
 
