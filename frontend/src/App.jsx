@@ -8,9 +8,9 @@ import Layout from './components/Layout';
 import ProtectedRoute from './components/ProtectedRoute';
 import Loader from './components/Loader';
 import ScrollToTop from './components/ScrollToTop';
+import Home from './pages/Home';
 
 // Lazy Load Pages
-const Home = lazy(() => import('./pages/Home'));
 const Login = lazy(() => import('./pages/Login'));
 const Register = lazy(() => import('./pages/Register'));
 const CourseDetails = lazy(() => import('./pages/CourseDetails'));

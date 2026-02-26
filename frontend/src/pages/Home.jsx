@@ -12,14 +12,14 @@ import {
 import { useUser } from '../context/UserContext';
 import Dashboard from './Dashboard';
 import ProductivityDashboard from '../components/ProductivityDashboard';
-
-const HERO_BANNER = 'https://media.licdn.com/dms/image/v2/D4D16AQFIM55TKI7AIQ/profile-displaybackgroundimage-shrink_350_1400/B4DZrxdcjuG4Ac-/0/1764987621122?e=1773878400&v=beta&t=SmNyhyDztH3PYgwmwWNc20-MOKJ2W-nIcGIqkUm0O2A';
-const HERO_LOGO = 'https://media.licdn.com/dms/image/v2/D4D03AQHhQx3-pxI0hQ/profile-displayphoto-scale_400_400/B4DZrxdH2tIMAg-/0/1764987536073?e=1773878400&v=beta&t=_gGw8Y9-4XJt4YilX7rCmhsp5cP3EvLRQDA0TGkRSlQ';
+import HERO_BANNER from '../assets/banner.webp';
+import HERO_LOGO from '../assets/logo.webp';
 
 const Home = () => {
   const { user } = useUser();
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [imagesLoaded, setImagesLoaded] = useState({ banner: false, logo: false });
   const [searchParams] = useSearchParams();
   const keyword = searchParams.get('keyword') || '';
   const category = searchParams.get('category') || '';
@@ -121,10 +121,9 @@ const Home = () => {
     fetchCourses();
   }, [keyword, category]);
 
-  if (loading) return <Loader />;
-
   // If user is logged in, show Dashboard at the top
   if (user) {
+    if (loading) return <Loader />;
     return (
       <div className="space-y-12">
         <Dashboard />
@@ -156,6 +155,8 @@ const Home = () => {
           src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJueXp6eXp6eXp6eXp6eXp6eXp6eXp6eXp6eXp6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/L1R1TVr9W5267L3LY5/giphy.gif" 
           alt="Background Animation" 
           className="w-full h-full object-cover"
+          loading="lazy"
+          decoding="async"
         />
       </div>
 
@@ -173,12 +174,18 @@ const Home = () => {
         className="bg-white dark:bg-[#1a1c3d]/60 dark:backdrop-blur-3xl rounded-3xl overflow-hidden border border-gray-200 dark:border-white/10 shadow-2xl relative z-10 mx-4 sm:mx-0"
       >
         {/* Banner */}
-        <div className="h-40 sm:h-56 md:h-72 w-full overflow-hidden relative">
+        <div className="h-40 sm:h-56 md:h-72 w-full overflow-hidden relative bg-[#1a1c3d]">
+          {!imagesLoaded.banner && (
+            <div className="absolute inset-0 animate-pulse bg-gradient-to-r from-[#1a1c3d] via-[#2a2d5d] to-[#1a1c3d]" />
+          )}
           <img 
             src={HERO_BANNER}
             alt="CatCatchCode Banner"
-            className="w-full h-full object-cover object-center"
+            className={`w-full h-full object-cover object-center transition-opacity duration-700 ${imagesLoaded.banner ? 'opacity-100' : 'opacity-0'}`}
             loading="eager"
+            fetchpriority="high"
+            decoding="async"
+            onLoad={() => setImagesLoaded(prev => ({ ...prev, banner: true }))}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
         </div>
@@ -189,12 +196,20 @@ const Home = () => {
             {/* Profile Logo */}
             <div className="relative flex flex-col items-start group">
               <div className="relative">
-                <img
-                  src={HERO_LOGO}
-                  alt="CatCatchCode Profile"
-                  className="w-32 h-32 sm:w-44 sm:h-44 md:w-56 md:h-56 rounded-full ring-4 sm:ring-8 ring-white dark:ring-[#0F0C29] object-cover shadow-2xl bg-white dark:bg-[#302b63] transition-transform duration-500 group-hover:scale-105"
-                  loading="eager"
-                />
+                <div className="w-32 h-32 sm:w-44 sm:h-44 md:w-56 md:h-56 rounded-full ring-4 sm:ring-8 ring-white dark:ring-[#0F0C29] bg-[#302b63] overflow-hidden shadow-2xl relative">
+                  {!imagesLoaded.logo && (
+                    <div className="absolute inset-0 animate-pulse bg-[#302b63]" />
+                  )}
+                  <img
+                    src={HERO_LOGO}
+                    alt="CatCatchCode Profile"
+                    className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-105 ${imagesLoaded.logo ? 'opacity-100' : 'opacity-0'}`}
+                    loading="eager"
+                    fetchpriority="high"
+                    decoding="async"
+                    onLoad={() => setImagesLoaded(prev => ({ ...prev, logo: true }))}
+                  />
+                </div>
                 <div className="absolute bottom-4 right-4 w-6 h-6 sm:w-8 sm:h-8 bg-green-500 border-4 border-white dark:border-[#0F0C29] rounded-full shadow-lg" title="Active Community" />
               </div>
               <h1 className="mt-6 text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white leading-tight whitespace-nowrap tracking-tight">
@@ -375,7 +390,11 @@ const Home = () => {
           </Link>
         </div>
         
-        {courses.length === 0 ? (
+        {loading ? (
+          <div className="flex justify-center py-20">
+            <Loader />
+          </div>
+        ) : courses.length === 0 ? (
           <div className="text-center py-24 glass-card rounded-[2.5rem] border border-dashed border-white/10 relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-br from-[#6C63FF]/5 to-[#00F5FF]/5 opacity-50 group-hover:opacity-100 transition-opacity" />
             <div className="relative z-10 space-y-4">
